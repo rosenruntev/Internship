@@ -46,6 +46,10 @@ public class Room {
 	 * Books the room.
 	 */
 	public void bookTheRoom() {
+		if (this.isBooked) {
+			throw new IllegalArgumentException("Room is already booked.");
+		}
+
 		this.isBooked = true;
 	}
 
@@ -53,6 +57,10 @@ public class Room {
 	 * Clear booking of the room.
 	 */
 	public void clearRoomBooking() {
+		if (!this.isBooked) {
+			throw new IllegalArgumentException("Room is not booked.");
+		}
+
 		this.isBooked = false;
 	}
 }
