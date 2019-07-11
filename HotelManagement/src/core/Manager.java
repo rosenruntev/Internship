@@ -63,11 +63,7 @@ public class Manager {
 		ArrayList<Room> rooms = this.hotel.getRooms();
 		for (int i = 0; i < rooms.size(); i++) {
 			if (rooms.get(i).getNumber() == roomNumber) {
-				if (rooms.get(i).isBooked()) {
-					throw new IllegalArgumentException("Room is already booked");
-				} else {
-					rooms.get(i).bookTheRoom();
-				}
+				rooms.get(i).bookTheRoom();
 			}
 		}
 	}

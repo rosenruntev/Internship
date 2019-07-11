@@ -20,6 +20,10 @@ public class HotelServiceApplication {
 			freeRooms.get(0).bookTheRoom();
 		}
 
-		hotel.getRooms().stream().forEach(r -> r.clearRoomBooking());
+		hotel.getRooms().stream().forEach(r -> {
+			if (r.isBooked()) {
+				r.clearRoomBooking();
+			}
+		});
 	}
 }
