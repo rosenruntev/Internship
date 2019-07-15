@@ -1,4 +1,4 @@
-package core;
+package core.Commodities;
 
 public abstract class AbstractCommodity {
 	private String name;

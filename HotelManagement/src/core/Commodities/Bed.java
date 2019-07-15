@@ -1,4 +1,4 @@
-package core;
+package core.Commodities;
 
 public class Bed extends AbstractCommodity {
 	@Override

@@ -1,4 +1,4 @@
-package core;
+package core.Commodities;
 
 public class Toilet extends AbstractCommodity {
 	@Override
