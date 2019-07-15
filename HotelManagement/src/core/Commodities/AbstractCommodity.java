@@ -28,6 +28,6 @@ public abstract class AbstractCommodity {
 
 	@Override
 	public boolean equals(Object obj) {
-		return super.equals(obj);
+		return this.getInventoryNumber() == ((AbstractCommodity)obj).getInventoryNumber();
 	}
 }
