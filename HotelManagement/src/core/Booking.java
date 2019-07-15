@@ -13,7 +13,12 @@ public class Booking {
 			this.setFromDate(fromDate);
 			this.setToDate(toDate);
 		} else {
-			throw new IllegalArgumentException("From date cannot be after to date");
+			if (fromDate.getDayOfMonth() != toDate.getDayOfMonth()) {
+				throw new IllegalArgumentException("From date cannot be after to date");
+			} else {
+				this.setFromDate(fromDate);
+				this.setToDate(toDate);
+			}
 		}
 
 		this.setGuestName(guestName);
