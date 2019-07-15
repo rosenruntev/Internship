@@ -1,7 +1,7 @@
-package core;
+package com.deltasource.hotelmanagement.core;
 
-import core.Commodities.AbstractCommodity;
-import core.Commodities.Bed;
+import com.deltasource.hotelmanagement.core.commodities.AbstractCommodity;
+import com.deltasource.hotelmanagement.core.commodities.Bed;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -9,19 +9,31 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 
+/**
+ * A class for creating a room with number, set of commodities, set of maintenance dates and set of bookings
+ */
 public class Room {
 	private int number;
 	private Set<AbstractCommodity> commodities;
 	private List<LocalDateTime> maintenanceDates;
 	private List<Booking> bookings;
 
+	/**
+	 * Constructs a room with provided number
+	 * @param number the number of the room
+	 */
 	public Room(int number) {
-		this.setNumber(number);
+		setNumber(number);
 		commodities = new HashSet<>();
 		maintenanceDates = new ArrayList<>();
 		bookings = new ArrayList<>();
 	}
 
+	/**
+	 * Constructs a room with provided number and set of commodities
+	 * @param number the number of the room
+	 * @param commodities set of room commodities
+	 */
 	public Room(int number, Set<AbstractCommodity> commodities) {
 		this(number);
 		this.commodities = commodities;
@@ -52,8 +64,8 @@ public class Room {
 	}
 
 	/**
-	 * Returns {@code true} if the room is booked.
-	 * @return {@code true} if the room is booked.
+	 * Returns {@code true} if the room is booked otherwise false
+	 * @return {@code true} if the room is booked otherwise false
 	 */
 	public boolean isBooked(LocalDate fromDate, LocalDate toDate, int size) {
 		ArrayList<String> availableDates = findAvailableDatesForIntervalAndSize(fromDate, toDate, size);
@@ -70,6 +82,9 @@ public class Room {
 		return commodities;
 	}
 
+	/**
+	 * Prepares the room commodities
+	 */
 	public void prepareRoomCommodities() {
 		for(AbstractCommodity commodity : commodities) {
 			commodity.prepare();
@@ -78,6 +93,10 @@ public class Room {
 		maintenanceDates.add(LocalDateTime.now());
 	}
 
+	/**
+	 * Returns the number of beds in the room
+	 * @return the number of beds in the room
+	 */
 	public int getNumberOfBeds() {
 		int numberOfBeds = 0;
 		for (AbstractCommodity commodity : commodities) {
@@ -89,6 +108,14 @@ public class Room {
 		return numberOfBeds;
 	}
 
+	/**
+	 * Creates booking with provided accommodation and leaving dates, size, guest name and guest id
+	 * @param fromDate the date of accommodation
+	 * @param toDate the date of leaving
+	 * @param size the booking period
+	 * @param guestName the name of the guest
+	 * @param guestId the id of the guest
+	 */
 	public void createBooking(LocalDate fromDate, LocalDate toDate, int size, String guestName, String guestId) {
 		ArrayList<String> availableDates = findAvailableDatesForIntervalAndSize(fromDate, toDate, size);
 		String date = fromDate.getYear() + "-" + fromDate.getMonthValue() + "-" + fromDate.getDayOfMonth() + " to " +
@@ -106,6 +133,11 @@ public class Room {
 		}
 	}
 
+	/**
+	 * Removes booking by date of accommodation and leaving
+	 * @param fromDate the date of accommodation
+	 * @param toDate the date of leaving
+	 */
 	public void removeBooking(LocalDate fromDate, LocalDate toDate) {
 		for (Booking booking : bookings) {
 			if (booking.getFromDate().isEqual(fromDate) && booking.getToDate().isEqual(toDate)) {
@@ -114,6 +146,12 @@ public class Room {
 		}
 	}
 
+	/**
+	 * Finds booked days for interval given by the customer
+	 * @param fromDate the date of accommodation
+	 * @param toDate the date of leaving
+	 * @return list with booked days in interval
+	 */
 	private ArrayList<String> findBookedDays(LocalDate fromDate, LocalDate toDate) {
 		ArrayList<String> bookedDays = new ArrayList<>();
 		for (Booking booking : bookings) {
@@ -147,6 +185,12 @@ public class Room {
 		return bookedDays;
 	}
 
+	/**
+	 * Finds available days for interval given by the customer
+	 * @param fromDate the date of accommodation
+	 * @param toDate the date of leaving
+	 * @return list with available days in interval
+	 */
 	private ArrayList<String> findAvailableDays(LocalDate fromDate, LocalDate toDate) {
 		ArrayList<String> bookedDays = findBookedDays(fromDate, toDate);
 		ArrayList<String> availableDays = new ArrayList<>();
@@ -182,6 +226,12 @@ public class Room {
 		return availableDays;
 	}
 
+	/**
+	 * Finds available dates for interval given by the customer
+	 * @param fromDate the date of accommodation
+	 * @param toDate the date of leaving
+	 * @return list with available dates in interval
+	 */
 	private ArrayList<String> findAvailableDatesForInterval(LocalDate fromDate, LocalDate toDate) {
 		ArrayList<String> availableDays = findAvailableDays(fromDate, toDate);
 
@@ -223,6 +273,13 @@ public class Room {
 		return availableDates;
 	}
 
+	/**
+	 * Finds available dates for interval and size given by the customer
+	 * @param fromDate the date of accommodation
+	 * @param toDate the date of leaving
+	 * @param size the booking period
+	 * @return list with available dates for interval and size
+	 */
 	public ArrayList<String> findAvailableDatesForIntervalAndSize(LocalDate fromDate, LocalDate toDate, int size) {
 		ArrayList<String> availableDates = findAvailableDatesForInterval(fromDate, toDate);
 
