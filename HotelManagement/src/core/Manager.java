@@ -2,6 +2,7 @@ package core;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Manager {
 	private String name;
@@ -61,7 +62,7 @@ public class Manager {
 	 * @param roomNumber the number of the room to be booked
 	 */
 	public void bookRoom(int roomNumber, LocalDate fromDate, LocalDate toDate, int size, int numberOfBeds, String guestName, String guestId) {
-		ArrayList<Room> rooms = this.hotel.getRooms();
+		List<Room> rooms = this.hotel.getRooms();
 		for (int i = 0; i < rooms.size(); i++) {
 			if (rooms.get(i).getNumber() == roomNumber) {
 				if (rooms.get(i).getNumberOfBeds() < numberOfBeds) {
@@ -78,7 +79,7 @@ public class Manager {
 	 * @return ArrayList with the available rooms of the hotel
 	 */
 	public void findAvailableDatesForIntervalAndSizeForRooms(LocalDate fromDate, LocalDate toDate, int size, int numberOfBeds) {
-		ArrayList<Room> rooms = this.hotel.getRooms();
+		List<Room> rooms = this.hotel.getRooms();
 		for (int i = 0; i < rooms.size(); i++) {
 			if (rooms.get(i).getNumberOfBeds() >= numberOfBeds) {
 				ArrayList<String> availableDates = rooms.get(i).findAvailableDatesForIntervalAndSize(fromDate, toDate, size);
