@@ -1,6 +1,7 @@
 package core;
 
 import core.Commodities.AbstractCommodity;
+import core.Commodities.Bed;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -46,6 +47,10 @@ public class Room {
 		this.number = number;
 	}
 
+	public List<Booking> getBookings() {
+		return bookings;
+	}
+
 	/**
 	 * Returns {@code true} if the room is booked.
 	 * @return {@code true} if the room is booked.
@@ -71,6 +76,17 @@ public class Room {
 		}
 
 		maintenanceDates.add(LocalDateTime.now());
+	}
+
+	public int getNumberOfBeds() {
+		int numberOfBeds = 0;
+		for (AbstractCommodity commodity : commodities) {
+			if (commodity instanceof Bed) {
+				numberOfBeds++;
+			}
+		}
+
+		return numberOfBeds;
 	}
 
 	public void createBooking(LocalDate fromDate, LocalDate toDate, int size, String guestName, String guestId) {
