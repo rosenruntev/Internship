@@ -10,8 +10,8 @@ public class Booking {
 
 	public Booking(LocalDate fromDate, LocalDate toDate, String guestName, String guestId) {
 		setBookingDates(fromDate, toDate);
-		this.setGuestName(guestName);
-		this.setGuestId(guestId);
+		setGuestName(guestName);
+		setGuestId(guestId);
 	}
 
 	public LocalDate getFromDate() {
@@ -74,7 +74,6 @@ public class Booking {
 	}
 
 	public void changeReservationDates(LocalDate fromDate, LocalDate toDate) {
-		this.setFromDate(fromDate);
-		this.setToDate(toDate);
+		setBookingDates(fromDate, toDate);
 	}
 }
