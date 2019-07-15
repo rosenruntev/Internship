@@ -1,4 +1,4 @@
-package core;
+package com.deltasource.hotelmanagement.core;
 
 import java.time.LocalDate;
 
@@ -9,6 +9,12 @@ public class Booking {
 	private String guestId;
 
 	public Booking(LocalDate fromDate, LocalDate toDate, String guestName, String guestId) {
+		if (fromDate == null) {
+			throw new IllegalArgumentException("From date cannot be null.");
+		} else if (toDate == null) {
+			throw new IllegalArgumentException("To date cannot be null.");
+		}
+
 		if (fromDate.isBefore(toDate)) {
 			this.setFromDate(fromDate);
 			this.setToDate(toDate);
