@@ -3,7 +3,8 @@ package core.Commodities;
 public class Bed extends AbstractCommodity {
 	private int numberOfPeople;
 
-	public Bed(int numberOfPeople) {
+	public Bed(int inventoryNumber, int numberOfPeople) {
+		super(inventoryNumber);
 		this.setNumberOfPeople(numberOfPeople);
 	}
 

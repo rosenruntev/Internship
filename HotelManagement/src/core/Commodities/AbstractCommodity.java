@@ -3,6 +3,10 @@ package core.Commodities;
 public abstract class AbstractCommodity {
 	private int inventoryNumber;
 
+	public AbstractCommodity(int inventoryNumber) {
+		this.setInventoryNumber(inventoryNumber);
+	}
+
 	public abstract void prepare();
 
 	public int getInventoryNumber() {
@@ -15,5 +19,15 @@ public abstract class AbstractCommodity {
 		}
 
 		this.inventoryNumber = inventoryNumber;
+	}
+
+	@Override
+	public int hashCode() {
+		return inventoryNumber;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		return super.equals(obj);
 	}
 }
