@@ -1,7 +1,7 @@
-import core.*;
-import core.Commodities.Bed;
-import core.Commodities.Shower;
-import core.Commodities.Toilet;
+import main.java.com.deltasource.hotelmanagement.core.*;
+import main.java.com.deltasource.hotelmanagement.core.Commodities.Bed;
+import main.java.com.deltasource.hotelmanagement.core.Commodities.Shower;
+import main.java.com.deltasource.hotelmanagement.core.Commodities.Toilet;
 
 import java.time.LocalDate;
 
