@@ -60,10 +60,14 @@ public class Manager {
 	 * Books a room by room number.
 	 * @param roomNumber the number of the room to be booked
 	 */
-	public void bookRoom(int roomNumber, LocalDate fromDate, LocalDate toDate, int size, String guestName, String guestId) {
+	public void bookRoom(int roomNumber, LocalDate fromDate, LocalDate toDate, int size, int numberOfBeds, String guestName, String guestId) {
 		ArrayList<Room> rooms = this.hotel.getRooms();
 		for (int i = 0; i < rooms.size(); i++) {
 			if (rooms.get(i).getNumber() == roomNumber) {
+				if (rooms.get(i).getNumberOfBeds() < numberOfBeds) {
+					throw new IllegalArgumentException("Not enough beds in the room.");
+				}
+
 				rooms.get(i).createBooking(fromDate, toDate, size, guestName, guestId);
 			}
 		}
@@ -73,12 +77,14 @@ public class Manager {
 	 * Returns the available rooms of the hotel.
 	 * @return ArrayList with the available rooms of the hotel
 	 */
-	public void findAvailableDatesForIntervalAndSizeForRooms(LocalDate fromDate, LocalDate toDate, int size) {
+	public void findAvailableDatesForIntervalAndSizeForRooms(LocalDate fromDate, LocalDate toDate, int size, int numberOfBeds) {
 		ArrayList<Room> rooms = this.hotel.getRooms();
 		for (int i = 0; i < rooms.size(); i++) {
-			ArrayList<String> availableDates = rooms.get(i).findAvailableDatesForIntervalAndSize(fromDate, toDate, size);
-			for (String availableDate : availableDates) {
-				System.out.println(availableDate);
+			if (rooms.get(i).getNumberOfBeds() >= numberOfBeds) {
+				ArrayList<String> availableDates = rooms.get(i).findAvailableDatesForIntervalAndSize(fromDate, toDate, size);
+				for (String availableDate : availableDates) {
+					System.out.println(availableDate);
+				}
 			}
 		}
 	}
