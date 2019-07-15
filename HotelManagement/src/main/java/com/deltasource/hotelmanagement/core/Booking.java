@@ -9,24 +9,7 @@ public class Booking {
 	private String guestId;
 
 	public Booking(LocalDate fromDate, LocalDate toDate, String guestName, String guestId) {
-		if (fromDate == null) {
-			throw new IllegalArgumentException("From date cannot be null.");
-		} else if (toDate == null) {
-			throw new IllegalArgumentException("To date cannot be null.");
-		}
-
-		if (fromDate.isBefore(toDate)) {
-			this.setFromDate(fromDate);
-			this.setToDate(toDate);
-		} else {
-			if (fromDate.getDayOfMonth() != toDate.getDayOfMonth()) {
-				throw new IllegalArgumentException("From date cannot be after to date");
-			} else {
-				this.setFromDate(fromDate);
-				this.setToDate(toDate);
-			}
-		}
-
+		setBookingDates(fromDate, toDate);
 		this.setGuestName(guestName);
 		this.setGuestId(guestId);
 	}
@@ -35,7 +18,7 @@ public class Booking {
 		return fromDate;
 	}
 
-	public void setFromDate(LocalDate fromDate) {
+	private void setFromDate(LocalDate fromDate) {
 		if (fromDate == null) {
 			throw new IllegalArgumentException("From date cannot be null.");
 		}
@@ -47,12 +30,23 @@ public class Booking {
 		return toDate;
 	}
 
-	public void setToDate(LocalDate toDate) {
+	private void setToDate(LocalDate toDate) {
 		if (toDate == null) {
 			throw new IllegalArgumentException("To date cannot be null.");
 		}
 
 		this.toDate = toDate;
+	}
+
+	public void setBookingDates(LocalDate fromDate, LocalDate toDate) {
+		if (!fromDate.isBefore(toDate)) {
+			if (fromDate.getDayOfMonth() != toDate.getDayOfMonth()) {
+				throw new IllegalArgumentException("From date cannot be after to date");
+			}
+		}
+
+		setFromDate(fromDate);
+		setToDate(toDate);
 	}
 
 	public String getGuestName() {
