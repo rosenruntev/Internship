@@ -81,6 +81,16 @@ public class Manager {
 	 */
 	public void bookRoom(int roomNumber, LocalDate fromDate, LocalDate toDate, int size, int numberOfBeds, String guestName, String guestId) {
 		List<Room> rooms = hotel.getRooms();
+		if (fromDate == null) {
+			throw new IllegalArgumentException("From date cannot be null");
+		} else if (toDate == null) {
+			throw new IllegalArgumentException("To date cannot be null");
+		} else if (guestName == null) {
+			throw new IllegalArgumentException("Guest name cannot be null");
+		} else if (guestId == null) {
+			throw new IllegalArgumentException("Guest id cannot be null");
+		}
+
 		for (int i = 0; i < rooms.size(); i++) {
 			if (rooms.get(i).getNumber() == roomNumber) {
 				if (rooms.get(i).getNumberOfBeds() < numberOfBeds) {
