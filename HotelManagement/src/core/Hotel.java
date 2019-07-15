@@ -1,10 +1,11 @@
 package core;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Hotel {
 	private String name;
-	private ArrayList<Room> rooms;
+	private List<Room> rooms;
 
 	public Hotel(String name) {
 		this.setName(name);
