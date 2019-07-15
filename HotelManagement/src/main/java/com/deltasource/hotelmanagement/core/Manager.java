@@ -1,20 +1,32 @@
-package core;
+package com.deltasource.hotelmanagement.core;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A class for creating a manager with name and hotel
+ */
 public class Manager {
 	private String name;
 	private Hotel hotel;
 
+	/**
+	 * Constructs a manager with provided name
+	 * @param name the name of the manager
+	 */
 	public Manager(String name) {
-		this.setName(name);
+		setName(name);
 	}
 
+	/**
+	 * Constructs a manager with provided name and hotel
+	 * @param name the name of the manager
+	 * @param hotel the hotel of the manager
+	 */
 	public Manager(String name, Hotel hotel) {
 		this(name);
-		this.setHotel(hotel);
+		setHotel(hotel);
 	}
 
 	/**
@@ -42,7 +54,7 @@ public class Manager {
 	 * @return the hotel of the manager
 	 */
 	public Hotel getHotel() {
-		return this.hotel;
+		return hotel;
 	}
 
 	/**
@@ -58,11 +70,17 @@ public class Manager {
 	}
 
 	/**
-	 * Books a room by room number.
+	 * Books a room by room number, accommodation and leaving dates, size, number of beds, guest name and guest id
 	 * @param roomNumber the number of the room to be booked
+	 * @param fromDate the date of accommodation
+	 * @param toDate the date of leaving
+	 * @param size the booking period
+	 * @param numberOfBeds the number of beds
+	 * @param guestName the name of the guest
+	 * @param guestId the id of the guest
 	 */
 	public void bookRoom(int roomNumber, LocalDate fromDate, LocalDate toDate, int size, int numberOfBeds, String guestName, String guestId) {
-		List<Room> rooms = this.hotel.getRooms();
+		List<Room> rooms = hotel.getRooms();
 		for (int i = 0; i < rooms.size(); i++) {
 			if (rooms.get(i).getNumber() == roomNumber) {
 				if (rooms.get(i).getNumberOfBeds() < numberOfBeds) {
@@ -79,7 +97,7 @@ public class Manager {
 	 * @return ArrayList with the available rooms of the hotel
 	 */
 	public void findAvailableDatesForIntervalAndSizeForRooms(LocalDate fromDate, LocalDate toDate, int size, int numberOfBeds) {
-		List<Room> rooms = this.hotel.getRooms();
+		List<Room> rooms = hotel.getRooms();
 		for (int i = 0; i < rooms.size(); i++) {
 			if (rooms.get(i).getNumberOfBeds() >= numberOfBeds) {
 				ArrayList<String> availableDates = rooms.get(i).findAvailableDatesForIntervalAndSize(fromDate, toDate, size);
