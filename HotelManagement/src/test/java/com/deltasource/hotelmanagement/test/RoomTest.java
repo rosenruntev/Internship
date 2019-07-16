@@ -25,15 +25,11 @@ public class RoomTest {
 		// given
 		Room room = new Room(1);
 		room.getCommodities().add(new Bed(1, 1));
-		Hotel hotel = new Hotel("Hotel");
-		hotel.getRooms().add(room);
-		Manager manager = new Manager("Manager");
-		manager.setHotel(hotel);
 		LocalDate fromDate = LocalDate.of(2019, 7, 16);
 		LocalDate toDate = LocalDate.of(2019, 7, 20);
 
 		// when
-		manager.bookRoom(1, fromDate, toDate, 4, 1, "guest name", "001");
+		room.createBooking(fromDate, toDate, 4, "guest name", "001");
 
 		// then
 		assertThat(room.isBooked(fromDate, toDate, 4), equalTo(true));
