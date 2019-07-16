@@ -59,6 +59,10 @@ public class Room {
 		this.number = number;
 	}
 
+	public List<LocalDateTime> getMaintenanceDates() {
+		return maintenanceDates;
+	}
+
 	public List<Booking> getBookings() {
 		return bookings;
 	}
@@ -157,14 +161,18 @@ public class Room {
 	 * Removes booking by date of accommodation and leaving
 	 * @param fromDate the date of accommodation
 	 * @param toDate the date of leaving
+	 * @return true if the booking was successfully removed
 	 */
-	public void removeBooking(LocalDate fromDate, LocalDate toDate) {
+	public boolean removeBooking(LocalDate fromDate, LocalDate toDate) {
 		validateDates(fromDate, toDate);
 		for (Booking booking : bookings) {
 			if (booking.getFromDate().isEqual(fromDate) && booking.getToDate().isEqual(toDate)) {
 				bookings.remove(booking);
+				return true;
 			}
 		}
+
+		return false;
 	}
 
 	/**
