@@ -2,6 +2,7 @@ package com.deltasource.hotelmanagement.test;
 
 import com.deltasource.hotelmanagement.core.Hotel;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class HotelTest {
@@ -11,7 +12,7 @@ public class HotelTest {
 		// then
 		assertThrows(IllegalArgumentException.class, () -> {
 			// when
-			Hotel hotel = new Hotel(null);
+			new Hotel(null);
 		});
 	}
 
@@ -20,7 +21,7 @@ public class HotelTest {
 		// then
 		assertThrows(IllegalArgumentException.class, () -> {
 			// when
-			Hotel hotel = new Hotel("");
+			new Hotel("");
 		});
 	}
 
@@ -29,7 +30,7 @@ public class HotelTest {
 		// then
 		assertThrows(IllegalArgumentException.class, () -> {
 			// when
-			Hotel hotel = new Hotel("", null);
+			new Hotel("", null);
 		});
 	}
 }
