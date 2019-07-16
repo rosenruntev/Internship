@@ -65,6 +65,9 @@ public class Room {
 
 	/**
 	 * Returns {@code true} if the room is booked otherwise {@code false}
+	 * @param fromDate the date of accommodation
+	 * @param toDate the date of leaving
+	 * @param size the booking period
 	 * @return {@code true} if the room is booked otherwise {@code false}
 	 */
 	public boolean isBooked(LocalDate fromDate, LocalDate toDate, int size) {

@@ -1,6 +1,6 @@
-package tests;
+package com.deltasource.hotelmanagement.test;
 
-import main.java.com.deltasource.hotelmanagement.core.Room;
+import com.deltasource.hotelmanagement.core.Room;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -12,27 +12,5 @@ public class RoomTests {
 		assertThrows(IllegalArgumentException.class, () -> {
 			Room room = new Room(-1);
 		});
-	}
-
-	@Test
-	public void bookingABookedRoomShouldThrowException() {
-		/*
-		assertThrows(IllegalArgumentException.class, () -> {
-			Room room = new Room(1, true);
-			room.bookTheRoom();
-		});
-
-		 */
-	}
-
-	@Test
-	public void clearBookingFromNotBookedRoomShouldThrowException() {
-		/*
-		assertThrows(IllegalArgumentException.class, () -> {
-			Room room = new Room(1, false);
-			room.clearRoomBooking();
-		});
-
-		 */
 	}
 }

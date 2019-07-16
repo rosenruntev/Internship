@@ -103,8 +103,11 @@ public class Manager {
 	}
 
 	/**
-	 * Returns the available rooms of the hotel.
-	 * @return ArrayList with the available rooms of the hotel
+	 * Finds the available rooms of the hotel
+	 * @param fromDate the date of accommodation
+	 * @param toDate the date of leaving
+	 * @param size the booking period
+	 * @param numberOfBeds the number of beds
 	 */
 	public void findAvailableDatesForIntervalAndSizeForRooms(LocalDate fromDate, LocalDate toDate, int size, int numberOfBeds) {
 		List<Room> rooms = hotel.getRooms();
