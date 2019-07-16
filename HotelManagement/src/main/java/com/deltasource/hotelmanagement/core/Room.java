@@ -19,7 +19,7 @@ public class Room {
 	private List<Booking> bookings;
 
 	/**
-	 * Constructs a room with provided number
+	 * Constructs a room with number
 	 * @param number the number of the room
 	 */
 	public Room(int number) {
@@ -30,7 +30,7 @@ public class Room {
 	}
 
 	/**
-	 * Constructs a room with provided number and set of commodities
+	 * Constructs a room with given number and set of commodities
 	 * @param number the number of the room
 	 * @param commodities set of room commodities
 	 */
@@ -64,8 +64,8 @@ public class Room {
 	}
 
 	/**
-	 * Returns {@code true} if the room is booked otherwise false
-	 * @return {@code true} if the room is booked otherwise false
+	 * Returns {@code true} if the room is booked otherwise {@code false}
+	 * @return {@code true} if the room is booked otherwise {@code false}
 	 */
 	public boolean isBooked(LocalDate fromDate, LocalDate toDate, int size) {
 		ArrayList<String> availableDates = findAvailableDatesForIntervalAndSize(fromDate, toDate, size);
@@ -109,7 +109,7 @@ public class Room {
 	}
 
 	/**
-	 * Creates booking with provided accommodation and leaving dates, size, guest name and guest id
+	 * Creates booking with accommodation and leaving dates, size, guest name and guest id
 	 * @param fromDate the date of accommodation
 	 * @param toDate the date of leaving
 	 * @param size the booking period

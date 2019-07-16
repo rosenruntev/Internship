@@ -12,7 +12,7 @@ public class Booking {
 	private String guestId;
 
 	/**
-	 * Constructs a booking with provided dates, guest name and guest id
+	 * Constructs a booking with given dates, guest name and guest id
 	 * @param fromDate the date of accommodation
 	 * @param toDate the date of leaving
 	 * @param guestName the name of the guest

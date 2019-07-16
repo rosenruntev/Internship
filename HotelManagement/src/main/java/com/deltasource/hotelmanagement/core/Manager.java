@@ -12,7 +12,7 @@ public class Manager {
 	private Hotel hotel;
 
 	/**
-	 * Constructs a manager with provided name
+	 * Constructs a manager with given name
 	 * @param name the name of the manager
 	 */
 	public Manager(String name) {
@@ -20,7 +20,7 @@ public class Manager {
 	}
 
 	/**
-	 * Constructs a manager with provided name and hotel
+	 * Constructs a manager with given name and hotel
 	 * @param name the name of the manager
 	 * @param hotel the hotel of the manager
 	 */

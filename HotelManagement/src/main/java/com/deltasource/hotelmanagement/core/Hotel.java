@@ -11,7 +11,7 @@ public class Hotel {
 	private List<Room> rooms;
 
 	/**
-	 * Constructs a hotel with provided name
+	 * Constructs a hotel with given name
 	 * @param name the name of the hotel
 	 */
 	public Hotel(String name) {
@@ -20,7 +20,7 @@ public class Hotel {
 	}
 
 	/**
-	 * Constructs a hotel with provided name and collection of rooms
+	 * Constructs a hotel with given name and collection of rooms
 	 * @param name the name of the hotel
 	 * @param rooms collection with the rooms of the hotel
 	 */

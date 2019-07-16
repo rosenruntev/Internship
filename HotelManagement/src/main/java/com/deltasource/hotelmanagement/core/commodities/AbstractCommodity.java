@@ -1,12 +1,22 @@
-package core.Commodities;
+package com.deltasource.hotelmanagement.core.commodities;
 
+/**
+ * An abstract class that defines commodity with inventory number
+ */
 public abstract class AbstractCommodity {
 	private int inventoryNumber;
 
+	/**
+	 * Constructor to set inventory number to commodity
+	 * @param inventoryNumber the inventory number of commodity
+	 */
 	public AbstractCommodity(int inventoryNumber) {
 		this.setInventoryNumber(inventoryNumber);
 	}
 
+	/**
+	 * Prepares the commodity for customer
+	 */
 	public abstract void prepare();
 
 	public int getInventoryNumber() {
@@ -28,6 +38,6 @@ public abstract class AbstractCommodity {
 
 	@Override
 	public boolean equals(Object obj) {
-		return this.getInventoryNumber() == ((AbstractCommodity)obj).getInventoryNumber();
+		return getInventoryNumber() == ((AbstractCommodity)obj).getInventoryNumber();
 	}
 }
