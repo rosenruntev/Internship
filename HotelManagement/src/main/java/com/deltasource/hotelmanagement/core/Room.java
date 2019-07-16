@@ -36,7 +36,7 @@ public class Room {
 	 */
 	public Room(int number, Set<AbstractCommodity> commodities) {
 		this(number);
-		this.commodities = commodities;
+		setCommodities(commodities);
 	}
 
 	/**
@@ -63,6 +63,18 @@ public class Room {
 		return bookings;
 	}
 
+	public Set<AbstractCommodity> getCommodities() {
+		return commodities;
+	}
+
+	private void setCommodities(Set<AbstractCommodity> commodities) {
+		if (commodities == null) {
+			throw new IllegalArgumentException("Commodities set cannot be null.");
+		}
+
+		this.commodities = commodities;
+	}
+
 	/**
 	 * Returns {@code true} if the room is booked otherwise {@code false}
 	 * @param fromDate the date of accommodation
@@ -80,10 +92,6 @@ public class Room {
 		}
 
 		return true;
-	}
-
-	public Set<AbstractCommodity> getCommodities() {
-		return commodities;
 	}
 
 	/**
