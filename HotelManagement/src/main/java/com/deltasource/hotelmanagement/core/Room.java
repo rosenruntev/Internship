@@ -76,10 +76,10 @@ public class Room {
 		String date = fromDate.getYear() + "-" + fromDate.getMonthValue() + "-" + fromDate.getDayOfMonth() + " to " +
 			toDate.getYear() + "-" + toDate.getMonthValue() + "-" + toDate.getDayOfMonth();
 		if (availableDates.contains(date)) {
-			return true;
+			return false;
 		}
 
-		return false;
+		return true;
 	}
 
 	public Set<AbstractCommodity> getCommodities() {
@@ -122,10 +122,16 @@ public class Room {
 	 */
 	public void createBooking(LocalDate fromDate, LocalDate toDate, int size, String guestName, String guestId) {
 		validateDates(fromDate, toDate);
+		if (guestName == null) {
+			throw new IllegalArgumentException("Guest name cannot be null.");
+		} else if (guestId == null) {
+			throw new IllegalArgumentException("Guest id cannot be null.");
+		}
+
 		ArrayList<String> availableDates = findAvailableDatesForIntervalAndSize(fromDate, toDate, size);
 		String date = fromDate.getYear() + "-" + fromDate.getMonthValue() + "-" + fromDate.getDayOfMonth() + " to " +
 			toDate.getYear() + "-" + toDate.getMonthValue() + "-" + toDate.getDayOfMonth();
-		if (availableDates == null) {
+		if (availableDates.size() == 0) {
 			System.out.println("There are not available dates for this interval and size.");
 		} else if (availableDates.contains(date)) {
 			Booking booking = new Booking(fromDate, toDate, guestName, guestId);
@@ -243,37 +249,37 @@ public class Room {
 
 		ArrayList<String> availableDates = new ArrayList<>();
 		if (availableDays.size() == 0) {
-			return null;
-		} else {
-			int elementIndex = 1;
-			int daysInARow = 1;
-			int startingIndex = 0;
-			int month = fromDate.getMonthValue();
-			while (true) {
-				if (elementIndex == availableDays.size()) {
-					availableDates.add(fromDate.getYear() + "-" + fromDate.getMonthValue() + "-" +
-						availableDays.get(startingIndex).split("\\.")[0] + " to " + fromDate.getYear() + "-" +
-						month + "-" + availableDays.get(startingIndex + daysInARow - 1).split("\\.")[0]);
-					break;
-				}
+			return availableDates;
+		}
 
-				int currentElementDay = Integer.parseInt(availableDays.get(elementIndex).split("\\.")[0]);
-				int previousElementDay = Integer.parseInt(availableDays.get(elementIndex - 1).split("\\.")[0]);
-				if (currentElementDay == previousElementDay + 1) {
-					daysInARow++;
-				} else if (previousElementDay == 30 && currentElementDay == 1 || previousElementDay == 31 && currentElementDay == 1) {
-					daysInARow++;
-					month++;
-				} else {
-					availableDates.add(fromDate.getYear() + "-" + fromDate.getMonthValue() + "-" +
-						availableDays.get(startingIndex).split("\\.")[0] + " to " + fromDate.getYear() + "-" +
-						month + "-" + availableDays.get(startingIndex + daysInARow - 1).split("\\.")[0]);
-					startingIndex = elementIndex;
-					daysInARow = 1;
-				}
-
-				elementIndex++;
+		int elementIndex = 1;
+		int daysInARow = 1;
+		int startingIndex = 0;
+		int month = fromDate.getMonthValue();
+		while (true) {
+			if (elementIndex == availableDays.size()) {
+				availableDates.add(fromDate.getYear() + "-" + fromDate.getMonthValue() + "-" +
+					availableDays.get(startingIndex).split("\\.")[0] + " to " + fromDate.getYear() + "-" +
+					month + "-" + availableDays.get(startingIndex + daysInARow - 1).split("\\.")[0]);
+				break;
 			}
+
+			int currentElementDay = Integer.parseInt(availableDays.get(elementIndex).split("\\.")[0]);
+			int previousElementDay = Integer.parseInt(availableDays.get(elementIndex - 1).split("\\.")[0]);
+			if (currentElementDay == previousElementDay + 1) {
+				daysInARow++;
+			} else if (previousElementDay == 30 && currentElementDay == 1 || previousElementDay == 31 && currentElementDay == 1) {
+				daysInARow++;
+				month++;
+			} else {
+				availableDates.add(fromDate.getYear() + "-" + fromDate.getMonthValue() + "-" +
+					availableDays.get(startingIndex).split("\\.")[0] + " to " + fromDate.getYear() + "-" +
+					month + "-" + availableDays.get(startingIndex + daysInARow - 1).split("\\.")[0]);
+				startingIndex = elementIndex;
+				daysInARow = 1;
+			}
+
+			elementIndex++;
 		}
 
 		return availableDates;
@@ -291,6 +297,10 @@ public class Room {
 		ArrayList<String> availableDates = findAvailableDatesForInterval(fromDate, toDate);
 
 		ArrayList<String> availableDateForIntervalAndSize = new ArrayList<>();
+		if (availableDates.size() == 0) {
+			return availableDateForIntervalAndSize;
+		}
+
 		for (String availableDate : availableDates) {
 			String[] splittedDates = availableDate.split(" to ");
 

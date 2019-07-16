@@ -26,7 +26,7 @@ public class Hotel {
 	 */
 	public Hotel(String name, ArrayList<Room> rooms) {
 		this(name);
-		this.rooms = rooms;
+		setRooms(rooms);
 	}
 
 	/**
@@ -44,6 +44,8 @@ public class Hotel {
 	private void setName(String name) {
 		if (name == null) {
 			throw new IllegalArgumentException("Hotel name cannot be null.");
+		} else if (name.isEmpty()) {
+			throw new IllegalArgumentException("The name cannot be empty.");
 		}
 
 		this.name = name;
@@ -55,5 +57,13 @@ public class Hotel {
 	 */
 	public List<Room> getRooms() {
 		return rooms;
+	}
+
+	public void setRooms(ArrayList<Room> rooms) {
+		if (rooms == null) {
+			throw new IllegalArgumentException("Rooms cannot be null.");
+		}
+
+		this.rooms = rooms;
 	}
 }
