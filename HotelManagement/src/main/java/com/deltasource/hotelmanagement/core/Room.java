@@ -71,14 +71,15 @@ public class Room {
 	 * @return {@code true} if the room is booked otherwise {@code false}
 	 */
 	public boolean isBooked(LocalDate fromDate, LocalDate toDate, int size) {
+		validateDates(fromDate, toDate);
 		ArrayList<String> availableDates = findAvailableDatesForIntervalAndSize(fromDate, toDate, size);
 		String date = fromDate.getYear() + "-" + fromDate.getMonthValue() + "-" + fromDate.getDayOfMonth() + " to " +
 			toDate.getYear() + "-" + toDate.getMonthValue() + "-" + toDate.getDayOfMonth();
-		if (availableDates == null) {
-			return false;
+		if (availableDates.contains(date)) {
+			return true;
 		}
 
-		return true;
+		return false;
 	}
 
 	public Set<AbstractCommodity> getCommodities() {
@@ -120,6 +121,7 @@ public class Room {
 	 * @param guestId the id of the guest
 	 */
 	public void createBooking(LocalDate fromDate, LocalDate toDate, int size, String guestName, String guestId) {
+		validateDates(fromDate, toDate);
 		ArrayList<String> availableDates = findAvailableDatesForIntervalAndSize(fromDate, toDate, size);
 		String date = fromDate.getYear() + "-" + fromDate.getMonthValue() + "-" + fromDate.getDayOfMonth() + " to " +
 			toDate.getYear() + "-" + toDate.getMonthValue() + "-" + toDate.getDayOfMonth();
@@ -142,6 +144,7 @@ public class Room {
 	 * @param toDate the date of leaving
 	 */
 	public void removeBooking(LocalDate fromDate, LocalDate toDate) {
+		validateDates(fromDate, toDate);
 		for (Booking booking : bookings) {
 			if (booking.getFromDate().isEqual(fromDate) && booking.getToDate().isEqual(toDate)) {
 				bookings.remove(booking);
@@ -284,6 +287,7 @@ public class Room {
 	 * @return list with available dates for interval and size
 	 */
 	public ArrayList<String> findAvailableDatesForIntervalAndSize(LocalDate fromDate, LocalDate toDate, int size) {
+		validateDates(fromDate, toDate);
 		ArrayList<String> availableDates = findAvailableDatesForInterval(fromDate, toDate);
 
 		ArrayList<String> availableDateForIntervalAndSize = new ArrayList<>();
@@ -300,5 +304,13 @@ public class Room {
 		}
 
 		return availableDateForIntervalAndSize;
+	}
+
+	private void validateDates(LocalDate fromDate, LocalDate toDate) {
+		if (fromDate == null) {
+			throw new IllegalArgumentException("From date cannot be null");
+		} else if (toDate == null) {
+			throw new IllegalArgumentException("To date cannot be null");
+		}
 	}
 }
