@@ -8,8 +8,9 @@ public class Bed extends AbstractCommodity {
 
 	/**
 	 * Constructs a bed with given inventory number and number of people
+	 *
 	 * @param inventoryNumber the id of the bed in the inventory
-	 * @param numberOfPeople the bed size
+	 * @param numberOfPeople  the bed size
 	 */
 	public Bed(int inventoryNumber, int numberOfPeople) {
 		super(inventoryNumber);

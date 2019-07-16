@@ -13,10 +13,11 @@ public class Booking {
 
 	/**
 	 * Constructs a booking with given dates, guest name and guest id
-	 * @param fromDate the date of accommodation
-	 * @param toDate the date of leaving
+	 *
+	 * @param fromDate  the date of accommodation
+	 * @param toDate    the date of leaving
 	 * @param guestName the name of the guest
-	 * @param guestId the id of the guest
+	 * @param guestId   the id of the guest
 	 */
 	public Booking(LocalDate fromDate, LocalDate toDate, String guestName, String guestId) {
 		setBookingDates(fromDate, toDate);
@@ -26,6 +27,7 @@ public class Booking {
 
 	/**
 	 * Returns the date of accommodation
+	 *
 	 * @return the date of accommodation
 	 */
 
@@ -35,6 +37,7 @@ public class Booking {
 
 	/**
 	 * Sets the date of accommodation
+	 *
 	 * @param fromDate the date of accommodation
 	 */
 	private void setFromDate(LocalDate fromDate) {
@@ -47,6 +50,7 @@ public class Booking {
 
 	/**
 	 * Returns the date of leaving
+	 *
 	 * @return the date of leaving
 	 */
 	public LocalDate getToDate() {
@@ -55,6 +59,7 @@ public class Booking {
 
 	/**
 	 * Sets the date of leaving
+	 *
 	 * @param toDate the date of leaving
 	 */
 	private void setToDate(LocalDate toDate) {
@@ -67,8 +72,9 @@ public class Booking {
 
 	/**
 	 * Sets the date of accommodation and the date of leaving
+	 *
 	 * @param fromDate the date of accommodation
-	 * @param toDate the date of leaving
+	 * @param toDate   the date of leaving
 	 */
 	public void setBookingDates(LocalDate fromDate, LocalDate toDate) {
 		if (!fromDate.isBefore(toDate)) {
@@ -83,6 +89,7 @@ public class Booking {
 
 	/**
 	 * Returns the guest's name
+	 *
 	 * @return the guest's name
 	 */
 	public String getGuestName() {
@@ -91,6 +98,7 @@ public class Booking {
 
 	/**
 	 * Sets the guest's name
+	 *
 	 * @param guestName the name of the guest
 	 */
 	public void setGuestName(String guestName) {
@@ -103,6 +111,7 @@ public class Booking {
 
 	/**
 	 * Returns the guest's id
+	 *
 	 * @return the guest's id
 	 */
 	public String getGuestId() {
@@ -111,6 +120,7 @@ public class Booking {
 
 	/**
 	 * Sets the guest's id
+	 *
 	 * @param guestId the id of the guest
 	 */
 	public void setGuestId(String guestId) {
@@ -123,8 +133,9 @@ public class Booking {
 
 	/**
 	 * Changes reservation dates
+	 *
 	 * @param fromDate the date of accommodation
-	 * @param toDate the date of leaving
+	 * @param toDate   the date of leaving
 	 */
 	public void changeReservationDates(LocalDate fromDate, LocalDate toDate) {
 		setBookingDates(fromDate, toDate);

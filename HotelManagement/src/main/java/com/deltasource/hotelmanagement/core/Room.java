@@ -7,7 +7,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * A class for creating a room with number, set of commodities, set of maintenance dates and set of bookings
@@ -20,6 +23,7 @@ public class Room {
 
 	/**
 	 * Constructs a room with number
+	 *
 	 * @param number the number of the room
 	 */
 	public Room(int number) {
@@ -31,7 +35,8 @@ public class Room {
 
 	/**
 	 * Constructs a room with given number and set of commodities
-	 * @param number the number of the room
+	 *
+	 * @param number      the number of the room
 	 * @param commodities set of room commodities
 	 */
 	public Room(int number, Set<AbstractCommodity> commodities) {
@@ -41,6 +46,7 @@ public class Room {
 
 	/**
 	 * Returns the number of the room.
+	 *
 	 * @return the number of the room
 	 */
 	public int getNumber() {
@@ -49,6 +55,7 @@ public class Room {
 
 	/**
 	 * Sets the number of the room.
+	 *
 	 * @param number the number of the room
 	 */
 	private void setNumber(int number) {
@@ -81,9 +88,10 @@ public class Room {
 
 	/**
 	 * Returns {@code true} if the room is booked otherwise {@code false}
+	 *
 	 * @param fromDate the date of accommodation
-	 * @param toDate the date of leaving
-	 * @param size the booking period
+	 * @param toDate   the date of leaving
+	 * @param size     the booking period
 	 * @return {@code true} if the room is booked otherwise {@code false}
 	 */
 	public boolean isBooked(LocalDate fromDate, LocalDate toDate, int size) {
@@ -102,7 +110,7 @@ public class Room {
 	 * Prepares the room commodities
 	 */
 	public void prepareRoomCommodities() {
-		for(AbstractCommodity commodity : commodities) {
+		for (AbstractCommodity commodity : commodities) {
 			commodity.prepare();
 		}
 
@@ -111,6 +119,7 @@ public class Room {
 
 	/**
 	 * Returns the number of beds in the room
+	 *
 	 * @return the number of beds in the room
 	 */
 	public int getNumberOfBeds() {
@@ -126,11 +135,12 @@ public class Room {
 
 	/**
 	 * Creates booking with accommodation and leaving dates, size, guest name and guest id
-	 * @param fromDate the date of accommodation
-	 * @param toDate the date of leaving
-	 * @param size the booking period
+	 *
+	 * @param fromDate  the date of accommodation
+	 * @param toDate    the date of leaving
+	 * @param size      the booking period
 	 * @param guestName the name of the guest
-	 * @param guestId the id of the guest
+	 * @param guestId   the id of the guest
 	 */
 	public void createBooking(LocalDate fromDate, LocalDate toDate, int size, String guestName, String guestId) {
 		validateDates(fromDate, toDate);
@@ -159,8 +169,9 @@ public class Room {
 
 	/**
 	 * Removes booking by date of accommodation and leaving
+	 *
 	 * @param fromDate the date of accommodation
-	 * @param toDate the date of leaving
+	 * @param toDate   the date of leaving
 	 * @return true if the booking was successfully removed
 	 */
 	public boolean removeBooking(LocalDate fromDate, LocalDate toDate) {
@@ -177,8 +188,9 @@ public class Room {
 
 	/**
 	 * Finds booked days for interval given by the customer
+	 *
 	 * @param fromDate the date of accommodation
-	 * @param toDate the date of leaving
+	 * @param toDate   the date of leaving
 	 * @return list with booked days in interval
 	 */
 	private ArrayList<String> findBookedDays(LocalDate fromDate, LocalDate toDate) {
@@ -216,8 +228,9 @@ public class Room {
 
 	/**
 	 * Finds available days for interval given by the customer
+	 *
 	 * @param fromDate the date of accommodation
-	 * @param toDate the date of leaving
+	 * @param toDate   the date of leaving
 	 * @return list with available days in interval
 	 */
 	private ArrayList<String> findAvailableDays(LocalDate fromDate, LocalDate toDate) {
@@ -256,8 +269,9 @@ public class Room {
 
 	/**
 	 * Finds available dates for interval given by the customer
+	 *
 	 * @param fromDate the date of accommodation
-	 * @param toDate the date of leaving
+	 * @param toDate   the date of leaving
 	 * @return list with available dates in interval
 	 */
 	private ArrayList<String> findAvailableDatesForInterval(LocalDate fromDate, LocalDate toDate) {
@@ -303,9 +317,10 @@ public class Room {
 
 	/**
 	 * Finds available dates for interval and size given by the customer
+	 *
 	 * @param fromDate the date of accommodation
-	 * @param toDate the date of leaving
-	 * @param size the booking period
+	 * @param toDate   the date of leaving
+	 * @param size     the booking period
 	 * @return list with available dates for interval and size
 	 */
 	public ArrayList<String> findAvailableDatesForIntervalAndSize(LocalDate fromDate, LocalDate toDate, int size) {

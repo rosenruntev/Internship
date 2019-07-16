@@ -7,6 +7,7 @@ public class Shower extends AbstractCommodity {
 
 	/**
 	 * Constructs a shower with given inventory number
+	 *
 	 * @param inventoryNumber the id of the shower in inventory
 	 */
 	public Shower(int inventoryNumber) {

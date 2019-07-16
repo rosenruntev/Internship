@@ -7,6 +7,7 @@ public class Toilet extends AbstractCommodity {
 
 	/**
 	 * Constructs a toilet commodity with given inventory number
+	 *
 	 * @param inventoryNumber the id of the toilet in inventory
 	 */
 	public Toilet(int inventoryNumber) {

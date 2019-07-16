@@ -8,6 +8,7 @@ public abstract class AbstractCommodity {
 
 	/**
 	 * Constructor to set inventory number to commodity
+	 *
 	 * @param inventoryNumber the inventory number of commodity
 	 */
 	public AbstractCommodity(int inventoryNumber) {
@@ -38,6 +39,6 @@ public abstract class AbstractCommodity {
 
 	@Override
 	public boolean equals(Object obj) {
-		return getInventoryNumber() == ((AbstractCommodity)obj).getInventoryNumber();
+		return getInventoryNumber() == ((AbstractCommodity) obj).getInventoryNumber();
 	}
 }

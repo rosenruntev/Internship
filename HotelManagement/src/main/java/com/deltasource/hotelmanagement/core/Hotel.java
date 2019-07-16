@@ -12,6 +12,7 @@ public class Hotel {
 
 	/**
 	 * Constructs a hotel with given name
+	 *
 	 * @param name the name of the hotel
 	 */
 	public Hotel(String name) {
@@ -21,7 +22,8 @@ public class Hotel {
 
 	/**
 	 * Constructs a hotel with given name and collection of rooms
-	 * @param name the name of the hotel
+	 *
+	 * @param name  the name of the hotel
 	 * @param rooms collection with the rooms of the hotel
 	 */
 	public Hotel(String name, ArrayList<Room> rooms) {
@@ -31,6 +33,7 @@ public class Hotel {
 
 	/**
 	 * Returns the name of the hotel.
+	 *
 	 * @return the name of the hotel
 	 */
 	public String getName() {
@@ -39,6 +42,7 @@ public class Hotel {
 
 	/**
 	 * Sets the name of the hotel.
+	 *
 	 * @param name the name to be set
 	 */
 	private void setName(String name) {
@@ -53,6 +57,7 @@ public class Hotel {
 
 	/**
 	 * Returns the rooms of the hotel.
+	 *
 	 * @return ArrayList with the rooms of the hotel
 	 */
 	public List<Room> getRooms() {

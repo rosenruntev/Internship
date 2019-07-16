@@ -13,6 +13,7 @@ public class Manager {
 
 	/**
 	 * Constructs a manager with given name
+	 *
 	 * @param name the name of the manager
 	 */
 	public Manager(String name) {
@@ -21,7 +22,8 @@ public class Manager {
 
 	/**
 	 * Constructs a manager with given name and hotel
-	 * @param name the name of the manager
+	 *
+	 * @param name  the name of the manager
 	 * @param hotel the hotel of the manager
 	 */
 	public Manager(String name, Hotel hotel) {
@@ -31,6 +33,7 @@ public class Manager {
 
 	/**
 	 * Returns the name of the manager.
+	 *
 	 * @return the name of the manager
 	 */
 	public String getName() {
@@ -39,6 +42,7 @@ public class Manager {
 
 	/**
 	 * Sets the name of the manager.
+	 *
 	 * @param name the name to be set
 	 */
 	private void setName(String name) {
@@ -51,6 +55,7 @@ public class Manager {
 
 	/**
 	 * Returns the hotel of the manager.
+	 *
 	 * @return the hotel of the manager
 	 */
 	public Hotel getHotel() {
@@ -59,6 +64,7 @@ public class Manager {
 
 	/**
 	 * Sets the hotel of the manager.
+	 *
 	 * @param hotel the hotel to be set
 	 */
 	public void setHotel(Hotel hotel) {
@@ -71,13 +77,14 @@ public class Manager {
 
 	/**
 	 * Books a room by room number, accommodation and leaving dates, size, number of beds, guest name and guest id
-	 * @param roomNumber the number of the room to be booked
-	 * @param fromDate the date of accommodation
-	 * @param toDate the date of leaving
-	 * @param size the booking period
+	 *
+	 * @param roomNumber   the number of the room to be booked
+	 * @param fromDate     the date of accommodation
+	 * @param toDate       the date of leaving
+	 * @param size         the booking period
 	 * @param numberOfBeds the number of beds
-	 * @param guestName the name of the guest
-	 * @param guestId the id of the guest
+	 * @param guestName    the name of the guest
+	 * @param guestId      the id of the guest
 	 */
 	public void bookRoom(int roomNumber, LocalDate fromDate, LocalDate toDate, int size, int numberOfBeds, String guestName, String guestId) {
 		List<Room> rooms = hotel.getRooms();
@@ -104,9 +111,10 @@ public class Manager {
 
 	/**
 	 * Finds the available rooms of the hotel
-	 * @param fromDate the date of accommodation
-	 * @param toDate the date of leaving
-	 * @param size the booking period
+	 *
+	 * @param fromDate     the date of accommodation
+	 * @param toDate       the date of leaving
+	 * @param size         the booking period
 	 * @param numberOfBeds the number of beds
 	 */
 	public void findAvailableDatesForIntervalAndSizeForRooms(LocalDate fromDate, LocalDate toDate, int size, int numberOfBeds) {
