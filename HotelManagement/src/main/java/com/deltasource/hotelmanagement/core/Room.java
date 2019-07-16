@@ -130,6 +130,7 @@ public class Room {
 		} else if (availableDates.contains(date)) {
 			Booking booking = new Booking(fromDate, toDate, guestName, guestId);
 			bookings.add(booking);
+			System.out.printf("Successfully created %s booking from %s", guestName, date);
 		} else {
 			System.out.println("Available dates in this interval:");
 			for (String availableDate : availableDates) {
