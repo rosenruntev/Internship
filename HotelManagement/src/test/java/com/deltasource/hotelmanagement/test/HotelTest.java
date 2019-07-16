@@ -4,12 +4,32 @@ import com.deltasource.hotelmanagement.core.Hotel;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class HotelTests {
+public class HotelTest {
 
 	@Test
 	public void setNameShouldThrowExceptionWhenNameIsNull() {
+		// then
 		assertThrows(IllegalArgumentException.class, () -> {
+			// when
 			Hotel hotel = new Hotel(null);
+		});
+	}
+
+	@Test
+	public void setNameShouldThrowExceptionWhenNameIsEmpty() {
+		// then
+		assertThrows(IllegalArgumentException.class, () -> {
+			// when
+			Hotel hotel = new Hotel("");
+		});
+	}
+
+	@Test
+	public void setRoomsToNullShouldThrowException() {
+		// then
+		assertThrows(IllegalArgumentException.class, () -> {
+			// when
+			Hotel hotel = new Hotel("", null);
 		});
 	}
 }
