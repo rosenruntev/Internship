@@ -222,7 +222,6 @@ public class Room {
 					month++;
 				}
 			}
-
 			if (!bookedDays.contains(day + "." + month)) {
 				availableDays.add(day + "." + month);
 			}
