@@ -39,6 +39,10 @@ public abstract class AbstractCommodity {
 
 	@Override
 	public boolean equals(Object obj) {
-		return getInventoryNumber() == ((AbstractCommodity) obj).getInventoryNumber();
+		if (obj instanceof AbstractCommodity) {
+			return getInventoryNumber() == ((AbstractCommodity) obj).getInventoryNumber();
+		}
+
+		return false;
 	}
 }
