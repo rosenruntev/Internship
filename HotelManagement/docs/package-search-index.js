@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.deltasource.hotelmanagement.core"},{"l":"com.deltasource.hotelmanagement.core.commodities"},{"l":"com.deltasource.hotelmanagement.test"}]
