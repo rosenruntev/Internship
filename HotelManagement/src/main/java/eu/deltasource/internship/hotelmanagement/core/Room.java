@@ -201,17 +201,18 @@ public class Room {
 		for (Booking booking : bookings) {
 			LocalDate bookingFromDate = booking.getFromDate();
 			LocalDate bookingToDate = booking.getToDate();
-			if (bookingFromDate.getMonthValue() == fromDate.getMonthValue() ||
+			int bookingFromDateMonth = bookingFromDate.getMonthValue();
+			if (bookingFromDateMonth == fromDate.getMonthValue() ||
 				bookingToDate.getMonthValue() == fromDate.getMonthValue() ||
-				bookingFromDate.getMonthValue() == toDate.getMonthValue() ||
+				bookingFromDateMonth == toDate.getMonthValue() ||
 				bookingToDate.getMonthValue() == toDate.getMonthValue()) {
 				while (!bookingFromDate.equals(bookingToDate)) {
-					bookedDays.add(bookingFromDate.getDayOfMonth() + "." + bookingFromDate.getMonthValue());
+					bookedDays.add(bookingFromDate.getDayOfMonth() + "." + bookingFromDateMonth);
 					bookingFromDate = bookingFromDate.plusDays(1);
 				}
 
 				// Adds the day of leaving to booked days
-				bookedDays.add(bookingFromDate.getDayOfMonth() + "." + bookingFromDate.getMonthValue());
+				bookedDays.add(bookingFromDate.getDayOfMonth() + "." + bookingFromDateMonth);
 			}
 		}
 
@@ -228,16 +229,18 @@ public class Room {
 	private ArrayList<String> findAvailableDays(LocalDate fromDate, LocalDate toDate) {
 		ArrayList<String> bookedDays = findBookedDays(fromDate, toDate);
 		ArrayList<String> availableDays = new ArrayList<>();
+		int fromDateDay = fromDate.getDayOfMonth();
+		int fromDateMonth = fromDate.getMonthValue();
 		while(!fromDate.equals(toDate)) {
-			if (!bookedDays.contains(fromDate.getDayOfMonth() + "." + fromDate.getMonthValue())) {
-				availableDays.add(fromDate.getDayOfMonth() + "." + fromDate.getMonthValue());
+			if (!bookedDays.contains(fromDateDay + "." + fromDateMonth)) {
+				availableDays.add(fromDateDay + "." + fromDateMonth);
 			}
 
 			fromDate = fromDate.plusDays(1);
 		}
 
 		// Adds the last day
-		availableDays.add(fromDate.getDayOfMonth() + "." + fromDate.getMonthValue());
+		availableDays.add(fromDateDay + "." + fromDateMonth);
 
 		return availableDays;
 	}
