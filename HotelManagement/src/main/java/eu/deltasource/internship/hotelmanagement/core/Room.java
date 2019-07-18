@@ -237,6 +237,8 @@ public class Room {
 			}
 
 			fromDate = fromDate.plusDays(1);
+			fromDateDay = fromDate.getDayOfMonth();
+			fromDateMonth = fromDate.getMonthValue();
 		}
 
 		// Adds the last day
