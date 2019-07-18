@@ -30,7 +30,6 @@ public class Booking {
 	 *
 	 * @return the date of accommodation
 	 */
-
 	public LocalDate getFromDate() {
 		return fromDate;
 	}
