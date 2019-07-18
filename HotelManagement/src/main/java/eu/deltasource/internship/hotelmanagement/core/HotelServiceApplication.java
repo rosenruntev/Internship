@@ -1,8 +1,8 @@
-package com.deltasource.hotelmanagement.core;
+package eu.deltasource.internship.hotelmanagement.core;
 
-import com.deltasource.hotelmanagement.core.commodities.Bed;
-import com.deltasource.hotelmanagement.core.commodities.Shower;
-import com.deltasource.hotelmanagement.core.commodities.Toilet;
+import eu.deltasource.internship.hotelmanagement.core.commodities.Bed;
+import eu.deltasource.internship.hotelmanagement.core.commodities.Shower;
+import eu.deltasource.internship.hotelmanagement.core.commodities.Toilet;
 
 import java.time.LocalDate;
 

@@ -1,4 +1,4 @@
-package com.deltasource.hotelmanagement.core;
+package eu.deltasource.internship.hotelmanagement.core;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

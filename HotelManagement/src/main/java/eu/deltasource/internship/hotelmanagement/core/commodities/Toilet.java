@@ -1,4 +1,4 @@
-package com.deltasource.hotelmanagement.core.commodities;
+package eu.deltasource.internship.hotelmanagement.core.commodities;
 
 /**
  * A class for creating a toilet commodity with inventory number

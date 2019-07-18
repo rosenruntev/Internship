@@ -1,4 +1,4 @@
-package com.deltasource.hotelmanagement.core.commodities;
+package eu.deltasource.internship.hotelmanagement.core.commodities;
 
 /**
  * Enumeration that represents the different types of beds

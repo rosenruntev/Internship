@@ -1,4 +1,4 @@
-package com.deltasource.hotelmanagement.core.commodities;
+package eu.deltasource.internship.hotelmanagement.core.commodities;
 
 /**
  * An abstract class that defines commodity with inventory number

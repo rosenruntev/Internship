@@ -1,6 +1,6 @@
-package com.deltasource.hotelmanagement.test;
+package eu.deltasource.internship.hotelmanagement.test;
 
-import com.deltasource.hotelmanagement.core.Hotel;
+import eu.deltasource.internship.hotelmanagement.core.Hotel;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;

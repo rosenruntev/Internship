@@ -1,9 +1,9 @@
-package com.deltasource.hotelmanagement.test;
+package eu.deltasource.internship.hotelmanagement.test;
 
-import com.deltasource.hotelmanagement.core.Hotel;
-import com.deltasource.hotelmanagement.core.Manager;
-import com.deltasource.hotelmanagement.core.Room;
-import com.deltasource.hotelmanagement.core.commodities.Bed;
+import eu.deltasource.internship.hotelmanagement.core.Hotel;
+import eu.deltasource.internship.hotelmanagement.core.Manager;
+import eu.deltasource.internship.hotelmanagement.core.Room;
+import eu.deltasource.internship.hotelmanagement.core.commodities.Bed;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;

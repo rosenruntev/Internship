@@ -1,4 +1,4 @@
-package com.deltasource.hotelmanagement.core;
+package eu.deltasource.internship.hotelmanagement.core;
 
 import java.util.ArrayList;
 import java.util.List;
