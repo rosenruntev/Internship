@@ -225,7 +225,7 @@ public class Room {
 	 * @param toDate   the date of leaving
 	 * @return list with available days in interval
 	 */
-	public ArrayList<String> findAvailableDays(LocalDate fromDate, LocalDate toDate) {
+	private ArrayList<String> findAvailableDays(LocalDate fromDate, LocalDate toDate) {
 		ArrayList<String> bookedDays = findBookedDays(fromDate, toDate);
 		ArrayList<String> availableDays = new ArrayList<>();
 		while(!fromDate.equals(toDate)) {
