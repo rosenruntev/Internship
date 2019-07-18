@@ -225,36 +225,19 @@ public class Room {
 	 * @param toDate   the date of leaving
 	 * @return list with available days in interval
 	 */
-	private ArrayList<String> findAvailableDays(LocalDate fromDate, LocalDate toDate) {
+	public ArrayList<String> findAvailableDays(LocalDate fromDate, LocalDate toDate) {
 		ArrayList<String> bookedDays = findBookedDays(fromDate, toDate);
 		ArrayList<String> availableDays = new ArrayList<>();
-		int day = fromDate.getDayOfMonth();
-		int month = fromDate.getMonthValue();
-		while (true) {
-			if (day == toDate.getDayOfMonth() && month == toDate.getMonthValue()) {
-				if (!bookedDays.contains(day + "." + month)) {
-					availableDays.add(day + "." + month);
-				}
-
-				break;
+		while(!fromDate.equals(toDate)) {
+			if (!bookedDays.contains(fromDate.getDayOfMonth() + "." + fromDate.getMonthValue())) {
+				availableDays.add(fromDate.getDayOfMonth() + "." + fromDate.getMonthValue());
 			}
 
-			if (fromDate.getMonthValue() != toDate.getMonthValue()) {
-				if (day == fromDate.lengthOfMonth()) {
-					if (!bookedDays.contains(day + "." + month)) {
-						availableDays.add(day + "." + month);
-					}
-
-					day = 1;
-					month++;
-				}
-			}
-			if (!bookedDays.contains(day + "." + month)) {
-				availableDays.add(day + "." + month);
-			}
-
-			day++;
+			fromDate = fromDate.plusDays(1);
 		}
+
+		// Adds the last day
+		availableDays.add(fromDate.getDayOfMonth() + "." + fromDate.getMonthValue());
 
 		return availableDays;
 	}
