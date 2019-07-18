@@ -101,7 +101,7 @@ public class Booking {
 	 *
 	 * @param guestName the name of the guest
 	 */
-	public void setGuestName(String guestName) {
+	private void setGuestName(String guestName) {
 		if (guestName == null) {
 			throw new IllegalArgumentException("Guest name cannot be null.");
 		}
@@ -123,21 +123,11 @@ public class Booking {
 	 *
 	 * @param guestId the id of the guest
 	 */
-	public void setGuestId(String guestId) {
+	private void setGuestId(String guestId) {
 		if (guestId == null) {
 			throw new IllegalArgumentException("Guest id cannot be null.");
 		}
 
 		this.guestId = guestId;
-	}
-
-	/**
-	 * Changes reservation dates
-	 *
-	 * @param fromDate the date of accommodation
-	 * @param toDate   the date of leaving
-	 */
-	public void changeReservationDates(LocalDate fromDate, LocalDate toDate) {
-		setBookingDates(fromDate, toDate);
 	}
 }
