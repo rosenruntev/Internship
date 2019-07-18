@@ -50,6 +50,6 @@ public class ManagerTest {
 		manager.bookRoom(1, fromDate, toDate, 4, 1, "guest name", "001");
 
 		// then
-		assertThat(room.isBooked(fromDate, toDate, 4), equalTo(true));
+		assertThat(room.isBooked(fromDate, toDate), equalTo(true));
 	}
 }

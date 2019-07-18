@@ -87,29 +87,32 @@ public class Room {
 	}
 
 	/**
-	 * Returns {@code true} if the room is booked otherwise {@code false}
+	 * Returns {@code true} if the room is booked for that period otherwise {@code false}
 	 *
 	 * @param fromDate the date of accommodation
 	 * @param toDate   the date of leaving
-	 * @param size     the booking period
 	 * @return {@code true} if the room is booked otherwise {@code false}
 	 */
-	public boolean isBooked(LocalDate fromDate, LocalDate toDate, int size) {
+	public boolean isBooked(LocalDate fromDate, LocalDate toDate) {
 		validateDates(fromDate, toDate);
-		ArrayList<String> availableDates = findAvailableDatesForIntervalAndSize(fromDate, toDate, size);
-		String date = fromDate.getYear() + "-" + fromDate.getMonthValue() + "-" + fromDate.getDayOfMonth() + " to " +
-			toDate.getYear() + "-" + toDate.getMonthValue() + "-" + toDate.getDayOfMonth();
-		if (availableDates.contains(date)) {
-			return false;
+		boolean isBooked = false;
+		for (Booking booking : bookings) {
+			if (!(booking.getToDate().isBefore(fromDate) || booking.getFromDate().isAfter(toDate))) {
+				isBooked = true;
+			}
 		}
 
-		return true;
+		return isBooked;
 	}
 
 	/**
 	 * Prepares the room commodities
 	 */
 	public void prepareRoomCommodities() {
+		if (commodities.size() == 0) {
+			throw new IllegalArgumentException("Commodities set is empty.");
+		}
+
 		for (AbstractCommodity commodity : commodities) {
 			commodity.prepare();
 		}
@@ -172,7 +175,7 @@ public class Room {
 	 *
 	 * @param fromDate the date of accommodation
 	 * @param toDate   the date of leaving
-	 * @return true if the booking was successfully removed
+	 * @return true if the booking was removed otherwise false
 	 */
 	public boolean removeBooking(LocalDate fromDate, LocalDate toDate) {
 		validateDates(fromDate, toDate);
@@ -187,7 +190,7 @@ public class Room {
 	}
 
 	/**
-	 * Finds booked days for interval given by the customer
+	 * Finds booked days for interval given by the customer.
 	 *
 	 * @param fromDate the date of accommodation
 	 * @param toDate   the date of leaving
@@ -196,30 +199,19 @@ public class Room {
 	private ArrayList<String> findBookedDays(LocalDate fromDate, LocalDate toDate) {
 		ArrayList<String> bookedDays = new ArrayList<>();
 		for (Booking booking : bookings) {
-			if (booking.getFromDate().getMonthValue() == fromDate.getMonthValue() ||
-				booking.getToDate().getMonthValue() == fromDate.getMonthValue() ||
-				booking.getFromDate().getMonthValue() == toDate.getMonthValue() ||
-				booking.getToDate().getMonthValue() == toDate.getMonthValue()) {
-				int daysInMonthOfBookingFromDate = booking.getFromDate().lengthOfMonth();
-				int day = booking.getFromDate().getDayOfMonth();
-				int month = booking.getFromDate().getMonthValue();
-				while (true) {
-					if (month == booking.getToDate().getMonthValue() && day == booking.getToDate().getDayOfMonth()) {
-						bookedDays.add(day + "." + month);
-						break;
-					}
-
-					if (booking.getFromDate().getMonthValue() != booking.getToDate().getMonthValue()) {
-						if (day == daysInMonthOfBookingFromDate) {
-							bookedDays.add(day + "." + month);
-							day = 1;
-							month++;
-						}
-					}
-
-					bookedDays.add(day + "." + month);
-					day++;
+			LocalDate bookingFromDate = booking.getFromDate();
+			LocalDate bookingToDate = booking.getToDate();
+			if (bookingFromDate.getMonthValue() == fromDate.getMonthValue() ||
+				bookingToDate.getMonthValue() == fromDate.getMonthValue() ||
+				bookingFromDate.getMonthValue() == toDate.getMonthValue() ||
+				bookingToDate.getMonthValue() == toDate.getMonthValue()) {
+				while (!bookingFromDate.equals(bookingToDate)) {
+					bookedDays.add(bookingFromDate.getDayOfMonth() + "." + bookingFromDate.getMonthValue());
+					bookingFromDate = bookingFromDate.plusDays(1);
 				}
+
+				// Adds the day of leaving to booked days
+				bookedDays.add(bookingFromDate.getDayOfMonth() + "." + bookingFromDate.getMonthValue());
 			}
 		}
 

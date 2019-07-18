@@ -32,7 +32,19 @@ public class RoomTest {
 		room.createBooking(fromDate, toDate, 4, "guest name", "001");
 
 		// then
-		assertThat(room.isBooked(fromDate, toDate, 4), equalTo(true));
+		assertThat(room.isBooked(fromDate, toDate), equalTo(true));
+	}
+
+	@Test
+	public void roomShouldBeFreeIfThereIsNotBookingForThatPeriod() {
+		// given
+		Room room = new Room(1);
+		room.getCommodities().add(new Bed(1, 1));
+		LocalDate fromDate = LocalDate.of(2019, 7, 16);
+		LocalDate toDate = LocalDate.of(2019, 7, 20);
+
+		// then
+		assertThat(room.isBooked(fromDate, toDate), equalTo(false));
 	}
 
 	@Test
