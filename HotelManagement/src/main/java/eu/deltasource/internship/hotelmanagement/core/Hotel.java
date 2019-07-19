@@ -26,7 +26,7 @@ public class Hotel {
 	 * @param name  the name of the hotel
 	 * @param rooms collection with the rooms of the hotel
 	 */
-	public Hotel(String name, ArrayList<Room> rooms) {
+	public Hotel(String name, List<Room> rooms) {
 		this(name);
 		setRooms(rooms);
 	}
@@ -46,10 +46,8 @@ public class Hotel {
 	 * @param name the name to be set
 	 */
 	private void setName(String name) {
-		if (name == null) {
-			throw new IllegalArgumentException("Hotel name cannot be null.");
-		} else if (name.isEmpty()) {
-			throw new IllegalArgumentException("The name cannot be empty.");
+		if (name == null || name.isEmpty()) {
+			throw new IllegalArgumentException("Hotel name cannot be null or empty.");
 		}
 
 		this.name = name;
@@ -64,9 +62,9 @@ public class Hotel {
 		return rooms;
 	}
 
-	public void setRooms(ArrayList<Room> rooms) {
-		if (rooms == null) {
-			throw new IllegalArgumentException("Rooms cannot be null.");
+	public void setRooms(List<Room> rooms) {
+		if (rooms == null || rooms.size() == 0) {
+			throw new IllegalArgumentException("Rooms cannot be null or empty.");
 		}
 
 		this.rooms = rooms;
