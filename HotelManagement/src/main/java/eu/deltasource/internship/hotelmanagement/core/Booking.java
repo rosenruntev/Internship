@@ -3,7 +3,7 @@ package eu.deltasource.internship.hotelmanagement.core;
 import java.time.LocalDate;
 
 /**
- * A class for creating a booking with dates, guest name and guest id
+ * A class that represents a booking with dates, guest name and guest id
  */
 public class Booking {
 	private LocalDate fromDate;
