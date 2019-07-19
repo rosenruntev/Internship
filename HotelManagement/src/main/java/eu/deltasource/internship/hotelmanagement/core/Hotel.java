@@ -67,6 +67,6 @@ public class Hotel {
 			throw new IllegalArgumentException("Rooms cannot be null or empty.");
 		}
 
-		this.rooms = rooms;
+		this.rooms = new ArrayList<>(rooms);
 	}
 }
