@@ -4,45 +4,31 @@
                       http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>eu.deltasource.internship.hotelmanagement</groupId>
+	<groupId>eu.deltasource.internship</groupId>
 	<artifactId>hotel-management</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>Maven Quick Start Archetype</name>
-	<url>http://maven.apache.org</url>
 
 	<properties>
-		<org.junit.jupiter-version>5.5.0</org.junit.jupiter-version>
-		<org.hamcrest-version>1.3</org.hamcrest-version>
+		<junit.version>5.5.0</junit.version>
+		<hamcrest.version>1.3</hamcrest.version>
+		<maven.compiler.target>12</maven.compiler.target>
+		<maven.compiler.source>12</maven.compiler.source>
 	</properties>
 
 	<dependencies>
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-api</artifactId>
-			<version>${org.junit.jupiter-version}</version>
+			<version>${junit.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.hamcrest</groupId>
 			<artifactId>hamcrest-all</artifactId>
-			<version>${org.hamcrest-version}</version>
+			<version>${hamcrest.version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>12</source>
-					<target>12</target>
-				</configuration>
-				<version>3.8.1</version>
-			</plugin>
-		</plugins>
-	</build>
 </project>
