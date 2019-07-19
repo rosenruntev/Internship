@@ -21,8 +21,7 @@ public class Booking {
 	 */
 	public Booking(LocalDate fromDate, LocalDate toDate, String guestName, String guestId) {
 		setBookingDates(fromDate, toDate);
-		setGuestName(guestName);
-		setGuestId(guestId);
+		setGuestInfo(guestName, guestId);
 	}
 
 	/**
@@ -128,5 +127,10 @@ public class Booking {
 		}
 
 		this.guestId = guestId;
+	}
+
+	private void setGuestInfo(String guestName, String guestId) {
+		setGuestName(guestName);
+		setGuestId(guestId);
 	}
 }
