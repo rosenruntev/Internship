@@ -104,8 +104,8 @@ public class Booking {
 	 * @param guestName the name of the guest
 	 */
 	private void setGuestName(String guestName) {
-		if (guestName == null) {
-			throw new IllegalArgumentException("Guest name cannot be null.");
+		if (guestName == null || guestName.isEmpty()) {
+			throw new IllegalArgumentException("Guest name cannot be null or empty.");
 		}
 
 		this.guestName = guestName;
@@ -126,8 +126,8 @@ public class Booking {
 	 * @param guestId the id of the guest
 	 */
 	private void setGuestId(String guestId) {
-		if (guestId == null) {
-			throw new IllegalArgumentException("Guest id cannot be null.");
+		if (guestId == null || guestId.isEmpty()) {
+			throw new IllegalArgumentException("Guest id cannot be null or empty.");
 		}
 
 		this.guestId = guestId;
