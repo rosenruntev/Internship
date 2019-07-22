@@ -71,13 +71,20 @@ public class Hotel {
 		this.rooms = new ArrayList<>(rooms);
 	}
 
-	public List<Integer> findAvailableRooms(LocalDate fromDate, LocalDate toDate, int capacity) {
+	/**
+	 * Finds available rooms for given interval and capacity
+	 * @param fromDate the date of accommodation
+	 * @param toDate the date of leaving
+	 * @param capacity the room beds capacity
+	 * @return a list with available rooms
+	 */
+	public List<Room> findAvailableRooms(LocalDate fromDate, LocalDate toDate, int capacity) {
 		List<Room> rooms = getRooms();
-		List<Integer> availableRooms = new ArrayList<>();
+		List<Room> availableRooms = new ArrayList<>();
 		for (Room currentRoom : rooms) {
 			if (currentRoom.getBedsCapacity() >= capacity) {
 				if (!currentRoom.isBooked(fromDate, toDate)) {
-					availableRooms.add(currentRoom.getNumber());
+					availableRooms.add(currentRoom);
 				}
 			}
 		}
