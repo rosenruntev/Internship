@@ -82,6 +82,10 @@ public class Hotel {
 			}
 		}
 
+		if (availableRooms.size() == 0) {
+			throw new NoRoomsAvailableException("No available rooms for that interval.");
+		}
+
 		return availableRooms;
 	}
 }
