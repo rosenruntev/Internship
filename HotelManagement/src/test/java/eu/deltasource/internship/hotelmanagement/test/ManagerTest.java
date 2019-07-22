@@ -4,6 +4,7 @@ import eu.deltasource.internship.hotelmanagement.core.Hotel;
 import eu.deltasource.internship.hotelmanagement.core.Manager;
 import eu.deltasource.internship.hotelmanagement.core.Room;
 import eu.deltasource.internship.hotelmanagement.core.commodities.Bed;
+import eu.deltasource.internship.hotelmanagement.core.commodities.BedType;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -18,19 +19,19 @@ public class ManagerTest {
 		// then
 		assertThrows(IllegalArgumentException.class, () -> {
 			// when
-			Manager manager = new Manager(null);
+			new Manager(null);
 		});
 	}
 
 	@Test
-	public void setHotelShouldThrowExceptionWhenHotelIsNull() {
+	public void assignHotelShouldThrowExceptionWhenHotelIsNull() {
 		// then
 		assertThrows(IllegalArgumentException.class, () -> {
 			// given
 			Manager manager = new Manager("Manager");
 
 			// when
-			manager.setHotel(null);
+			manager.assignHotel(null);
 		});
 	}
 
@@ -38,16 +39,19 @@ public class ManagerTest {
 	public void roomShouldBeBookedAfterManagerBooksIt() {
 		// given
 		Room room = new Room(1);
-		room.getCommodities().add(new Bed(1, 1));
+		room.getCommodities().add(new Bed(1, BedType.SINGLE));
+
 		Hotel hotel = new Hotel("Hotel");
 		hotel.getRooms().add(room);
+
 		Manager manager = new Manager("Manager");
-		manager.setHotel(hotel);
-		LocalDate fromDate = LocalDate.of(2019, 7, 16);
+		manager.assignHotel(hotel);
+
+		LocalDate fromDate = LocalDate.of(2019, 7, 15);
 		LocalDate toDate = LocalDate.of(2019, 7, 20);
 
 		// when
-		manager.bookRoom(1, fromDate, toDate, 4, 1, "guest name", "001");
+		manager.createBooking("1", fromDate, toDate, 1, "guestName");
 
 		// then
 		assertThat(room.isBooked(fromDate, toDate), equalTo(true));
