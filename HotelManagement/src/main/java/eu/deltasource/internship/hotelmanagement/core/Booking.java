@@ -138,10 +138,22 @@ public class Booking {
 		setGuestId(guestId);
 	}
 
+	/**
+	 * Updates the booking dates
+	 *
+	 * @param fromDate the date of accommodation
+	 * @param toDate   the date of leaving
+	 */
 	public void updateBooking(LocalDate fromDate, LocalDate toDate) {
 		setBookingDates(fromDate, toDate);
 	}
 
+	/**
+	 * Updates the booking guest name and guest id
+	 *
+	 * @param guestName the name of the guest
+	 * @param guestId   the id of the guest
+	 */
 	public void updateBooking(String guestName, String guestId) {
 		setGuestInfo(guestName, guestId);
 	}
