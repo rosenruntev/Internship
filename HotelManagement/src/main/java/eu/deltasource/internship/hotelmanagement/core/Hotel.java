@@ -73,8 +73,9 @@ public class Hotel {
 
 	/**
 	 * Finds available rooms for given interval and capacity
+	 *
 	 * @param fromDate the date of accommodation
-	 * @param toDate the date of leaving
+	 * @param toDate   the date of leaving
 	 * @param capacity the room beds capacity
 	 * @return a list with available rooms
 	 */
