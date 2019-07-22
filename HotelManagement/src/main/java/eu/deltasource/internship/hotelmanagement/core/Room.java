@@ -160,7 +160,7 @@ public class Room {
 		} else {
 			Booking booking = new Booking(fromDate, toDate, guestName, guestId);
 			bookings.add(booking);
-			System.out.printf("Successfully created %s's booking from %s to %s", guestName, fromDate.toString(), toDate.toString());
+			System.out.printf("Successfully created %s's booking from %s to %s\n", guestName, fromDate.toString(), toDate.toString());
 		}
 	}
 
