@@ -24,7 +24,7 @@ public abstract class AbstractCommodity {
 		return inventoryNumber;
 	}
 
-	public void setInventoryNumber(int inventoryNumber) {
+	private void setInventoryNumber(int inventoryNumber) {
 		if (inventoryNumber <= 0) {
 			throw new IllegalArgumentException("Inventory number cannot be negative or zero.");
 		}
