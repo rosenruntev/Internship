@@ -93,6 +93,7 @@ public class Manager {
 			if (!room.isBooked(fromDate, toDate)) {
 				room.createBooking(fromDate, toDate, capacity, guestName, guestId);
 				roomNumber = room.getNumber();
+				break;
 			}
 		}
 
