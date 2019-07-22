@@ -11,7 +11,8 @@ public class NoRoomsAvailableException extends RuntimeException {
 	}
 
 	/**
-	 * Constructs a NoRoomsAvailableException with detailed message
+	 * Constructs a NoRoomsAvailableException with a detailed message
+	 *
 	 * @param message the message of exception
 	 */
 	public NoRoomsAvailableException(String message) {

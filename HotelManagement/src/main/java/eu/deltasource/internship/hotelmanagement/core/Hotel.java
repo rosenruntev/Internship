@@ -1,5 +1,6 @@
 package eu.deltasource.internship.hotelmanagement.core;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,11 +63,25 @@ public class Hotel {
 		return rooms;
 	}
 
-	public void setRooms(List<Room> rooms) {
+	private void setRooms(List<Room> rooms) {
 		if (rooms == null || rooms.size() == 0) {
 			throw new IllegalArgumentException("Rooms cannot be null or empty.");
 		}
 
 		this.rooms = new ArrayList<>(rooms);
+	}
+
+	public List<Integer> findAvailableRooms(LocalDate fromDate, LocalDate toDate, int capacity) {
+		List<Room> rooms = getRooms();
+		List<Integer> availableRooms = new ArrayList<>();
+		for (Room currentRoom : rooms) {
+			if (currentRoom.getBedsCapacity() >= capacity) {
+				if (!currentRoom.isBooked(fromDate, toDate)) {
+					availableRooms.add(currentRoom.getNumber());
+				}
+			}
+		}
+
+		return availableRooms;
 	}
 }

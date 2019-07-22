@@ -12,11 +12,11 @@ public abstract class AbstractCommodity {
 	 * @param inventoryNumber the inventory number of commodity
 	 */
 	public AbstractCommodity(int inventoryNumber) {
-		this.setInventoryNumber(inventoryNumber);
+		setInventoryNumber(inventoryNumber);
 	}
 
 	/**
-	 * Prepares the commodity for customer
+	 * Prepares the commodity for the customer
 	 */
 	public abstract void prepare();
 
@@ -25,8 +25,8 @@ public abstract class AbstractCommodity {
 	}
 
 	public void setInventoryNumber(int inventoryNumber) {
-		if (inventoryNumber < 0) {
-			throw new IllegalArgumentException("Inventory number cannot be negative.");
+		if (inventoryNumber <= 0) {
+			throw new IllegalArgumentException("Inventory number cannot be negative or zero.");
 		}
 
 		this.inventoryNumber = inventoryNumber;

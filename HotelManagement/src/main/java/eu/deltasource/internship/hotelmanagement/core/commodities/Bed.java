@@ -1,20 +1,20 @@
 package eu.deltasource.internship.hotelmanagement.core.commodities;
 
 /**
- * A class for creating a bed commodity with inventory number and number of people
+ * A class for creating a bed commodity with inventory number and bed type
  */
 public class Bed extends AbstractCommodity {
-	private int numberOfPeople;
+	private BedType type;
 
 	/**
-	 * Constructs a bed with given inventory number and number of people
+	 * Constructs a bed with given inventory number and type
 	 *
 	 * @param inventoryNumber the id of the bed in the inventory
-	 * @param numberOfPeople  the bed size
+	 * @param type            the bed type
 	 */
-	public Bed(int inventoryNumber, int numberOfPeople) {
+	public Bed(int inventoryNumber, BedType type) {
 		super(inventoryNumber);
-		setNumberOfPeople(numberOfPeople);
+		setType(type);
 	}
 
 	/**
@@ -25,15 +25,11 @@ public class Bed extends AbstractCommodity {
 		System.out.println("Bed sheets are being replaced");
 	}
 
-	public int getNumberOfPeople() {
-		return numberOfPeople;
+	public BedType getType() {
+		return type;
 	}
 
-	public void setNumberOfPeople(int numberOfPeople) {
-		if (numberOfPeople < 1) {
-			throw new IllegalArgumentException("Number of people cannot be less than 1.");
-		}
-
-		this.numberOfPeople = numberOfPeople;
+	private void setType(BedType type) {
+		this.type = type;
 	}
 }

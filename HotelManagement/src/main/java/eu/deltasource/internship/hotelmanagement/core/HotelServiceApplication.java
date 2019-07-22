@@ -1,6 +1,9 @@
 package eu.deltasource.internship.hotelmanagement.core;
 
-import eu.deltasource.internship.hotelmanagement.core.commodities.*;
+import eu.deltasource.internship.hotelmanagement.core.commodities.Bed;
+import eu.deltasource.internship.hotelmanagement.core.commodities.BedType;
+import eu.deltasource.internship.hotelmanagement.core.commodities.Shower;
+import eu.deltasource.internship.hotelmanagement.core.commodities.Toilet;
 
 import java.time.LocalDate;
 
@@ -11,19 +14,19 @@ public class HotelServiceApplication {
 
 		// Creating rooms and adding commodities
 		Room firstRoom = new Room(1);
-		firstRoom.getCommodities().add(new Bed(1, 2));
+		firstRoom.getCommodities().add(new Bed(1, BedType.DOUBLE));
 		firstRoom.getCommodities().add(new Shower(2));
 		firstRoom.getCommodities().add(new Toilet(3));
 		Room secondRoom = new Room(2);
-		secondRoom.getCommodities().add(new Bed(1, 1));
-		secondRoom.getCommodities().add(new Bed(2, 1));
-		secondRoom.getCommodities().add(new Bed(3, 1));
+		secondRoom.getCommodities().add(new Bed(1, BedType.SINGLE));
+		secondRoom.getCommodities().add(new Bed(2, BedType.SINGLE));
+		secondRoom.getCommodities().add(new Bed(3, BedType.SINGLE));
 		secondRoom.getCommodities().add(new Shower(4));
 		secondRoom.getCommodities().add(new Toilet(5));
 		secondRoom.getCommodities().add(new Toilet(6));
 		Room thirdRoom = new Room(3);
-		thirdRoom.getCommodities().add(new Bed(1, 1));
-		thirdRoom.getCommodities().add(new Bed(2, 1));
+		thirdRoom.getCommodities().add(new Bed(1, BedType.SINGLE));
+		thirdRoom.getCommodities().add(new Bed(2, BedType.SINGLE));
 		thirdRoom.getCommodities().add(new Shower(3));
 		thirdRoom.getCommodities().add(new Toilet(4));
 
@@ -33,16 +36,14 @@ public class HotelServiceApplication {
 		hotel.getRooms().add(secondRoom);
 		hotel.getRooms().add(thirdRoom);
 		// Setting manager's hotel
-		manager.setHotel(hotel);
+		manager.assignHotel(hotel);
 
 		// Creating bookings
-		manager.bookRoom(2, LocalDate.of(2019, 7, 20),
-			LocalDate.of(2019, 7, 25), 5, 2, "guest1", "001");
-
-		manager.bookRoom(1, LocalDate.of(2019, 7, 22),
-			LocalDate.of(2019, 7, 22), 1, 1, "guest2", "002");
-
-		manager.bookRoom(3, LocalDate.of(2019, 7, 19),
-			LocalDate.of(2019, 7, 21), 2, 2, "guest3", "003");
+		manager.createBooking("1", LocalDate.of(2019, 7, 20),
+			LocalDate.of(2019, 7, 25), 1, "guest1");
+		manager.createBooking("2", LocalDate.of(2019, 7, 22),
+			LocalDate.of(2019, 7, 22), 2, "guest2");
+		manager.createBooking("3", LocalDate.of(2019, 7, 19),
+			LocalDate.of(2019, 7, 21), 2, "guest3");
 	}
 }

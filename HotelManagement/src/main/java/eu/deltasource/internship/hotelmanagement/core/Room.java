@@ -6,7 +6,6 @@ import eu.deltasource.internship.hotelmanagement.core.commodities.Bed;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -59,8 +58,8 @@ public class Room {
 	 * @param number the number of the room
 	 */
 	private void setNumber(int number) {
-		if (number < 0) {
-			throw new IllegalArgumentException("Room number cannot be negative.");
+		if (number <= 0) {
+			throw new IllegalArgumentException("Room number cannot be a negative number or zero.");
 		}
 
 		this.number = number;
@@ -79,30 +78,29 @@ public class Room {
 	}
 
 	private void setCommodities(Set<AbstractCommodity> commodities) {
-		if (commodities == null) {
-			throw new IllegalArgumentException("Commodities set cannot be null.");
+		if (commodities == null || commodities.size() == 0) {
+			throw new IllegalArgumentException("Commodities set cannot be null or empty.");
 		}
 
-		this.commodities = commodities;
+		this.commodities = new HashSet<>(commodities);
 	}
 
 	/**
-	 * Returns {@code true} if the room is booked for that period otherwise {@code false}
+	 * Returns true if the room is booked for that period otherwise false
 	 *
 	 * @param fromDate the date of accommodation
 	 * @param toDate   the date of leaving
-	 * @return {@code true} if the room is booked otherwise {@code false}
+	 * @return true if the room is booked otherwise false
 	 */
 	public boolean isBooked(LocalDate fromDate, LocalDate toDate) {
 		validateDates(fromDate, toDate);
-		boolean isBooked = false;
 		for (Booking booking : bookings) {
 			if (!(booking.getToDate().isBefore(fromDate) || booking.getFromDate().isAfter(toDate))) {
-				isBooked = true;
+				return true;
 			}
 		}
 
-		return isBooked;
+		return false;
 	}
 
 	/**
@@ -121,52 +119,48 @@ public class Room {
 	}
 
 	/**
-	 * Returns the number of beds in the room
+	 * Returns the capacity of beds in the room
 	 *
-	 * @return the number of beds in the room
+	 * @return the capacity of beds in the room
 	 */
-	public int getNumberOfBeds() {
-		int numberOfBeds = 0;
+	public int getBedsCapacity() {
+		int capacity = 0;
 		for (AbstractCommodity commodity : commodities) {
 			if (commodity instanceof Bed) {
-				numberOfBeds++;
+				capacity += ((Bed) commodity).getType().getCapacity();
 			}
 		}
 
-		return numberOfBeds;
+		return capacity;
 	}
 
 	/**
-	 * Creates booking with accommodation and leaving dates, size, guest name and guest id
+	 * Creates a booking with accommodation and leaving dates, capacity, guest name and guest id
 	 *
 	 * @param fromDate  the date of accommodation
 	 * @param toDate    the date of leaving
-	 * @param size      the booking period
+	 * @param capacity  the room beds capacity
 	 * @param guestName the name of the guest
 	 * @param guestId   the id of the guest
 	 */
-	public void createBooking(LocalDate fromDate, LocalDate toDate, int size, String guestName, String guestId) {
+	public void createBooking(LocalDate fromDate, LocalDate toDate, int capacity, String guestName, String guestId) {
 		validateDates(fromDate, toDate);
-		if (guestName == null) {
-			throw new IllegalArgumentException("Guest name cannot be null.");
-		} else if (guestId == null) {
-			throw new IllegalArgumentException("Guest id cannot be null.");
+		if (guestName == null || guestId == null) {
+			throw new IllegalArgumentException("Guest name or guest id cannot be null.");
 		}
 
-		ArrayList<String> availableDates = findAvailableDatesForIntervalAndSize(fromDate, toDate, size);
-		String date = fromDate.getYear() + "-" + fromDate.getMonthValue() + "-" + fromDate.getDayOfMonth() + " to " +
-			toDate.getYear() + "-" + toDate.getMonthValue() + "-" + toDate.getDayOfMonth();
-		if (availableDates.size() == 0) {
-			System.out.println("There are not available dates for this interval and size.");
-		} else if (availableDates.contains(date)) {
+		if (capacity < 1) {
+			throw new IllegalArgumentException("Room beds capacity cannot be a negative number or zero.");
+		} else if (capacity > getBedsCapacity()) {
+			throw new IllegalArgumentException("Capacity cannot be bigger than the room beds capacity.");
+		}
+
+		if (isBooked(fromDate, toDate)) {
+			System.out.println("This room is already booked for that period.");
+		} else {
 			Booking booking = new Booking(fromDate, toDate, guestName, guestId);
 			bookings.add(booking);
-			System.out.printf("Successfully created %s's booking from %s", guestName, date);
-		} else {
-			System.out.println("Available dates in this interval:");
-			for (String availableDate : availableDates) {
-				System.out.println(availableDate);
-			}
+			System.out.printf("Successfully created %s's booking from %s to %s", guestName, fromDate.toString(), toDate.toString());
 		}
 	}
 
@@ -187,6 +181,16 @@ public class Room {
 		}
 
 		return false;
+	}
+
+	private void validateDates(LocalDate fromDate, LocalDate toDate) {
+		if (fromDate == null || toDate == null) {
+			throw new IllegalArgumentException("From and to dates cannot be null");
+		} else if (!fromDate.isBefore(toDate)) {
+			if (fromDate.getDayOfMonth() != toDate.getDayOfMonth()) {
+				throw new IllegalArgumentException("From date cannot be after to date");
+			}
+		}
 	}
 
 	/**
@@ -231,7 +235,19 @@ public class Room {
 		ArrayList<String> availableDays = new ArrayList<>();
 		int fromDateDay = fromDate.getDayOfMonth();
 		int fromDateMonth = fromDate.getMonthValue();
-		while(!fromDate.equals(toDate)) {
+		int toDateDay = toDate.getDayOfMonth();
+		int toDateMonth = toDate.getMonthValue();
+
+		// Check if booking is for one day
+		if (fromDateDay == toDateDay && fromDateMonth == toDateMonth) {
+			if (!bookedDays.contains(fromDateDay + "." + fromDateMonth)) {
+				availableDays.add(fromDateDay + "." + fromDateMonth);
+			}
+
+			return availableDays;
+		}
+
+		while (!fromDate.equals(toDate)) {
 			if (!bookedDays.contains(fromDateDay + "." + fromDateMonth)) {
 				availableDays.add(fromDateDay + "." + fromDateMonth);
 			}
@@ -300,13 +316,18 @@ public class Room {
 	 *
 	 * @param fromDate the date of accommodation
 	 * @param toDate   the date of leaving
-	 * @param size     the booking period
+	 * @param capacity the room beds capacity
 	 * @return list with available dates for interval and size
 	 */
-	public ArrayList<String> findAvailableDatesForIntervalAndSize(LocalDate fromDate, LocalDate toDate, int size) {
+	public ArrayList<String> findAvailableDatesForIntervalAndSize(LocalDate fromDate, LocalDate toDate, int capacity) {
 		validateDates(fromDate, toDate);
-		ArrayList<String> availableDates = findAvailableDatesForInterval(fromDate, toDate);
+		if (capacity < 1) {
+			throw new IllegalArgumentException("Room beds capacity cannot be a negative number or zero.");
+		} else if (capacity > getBedsCapacity()) {
+			throw new IllegalArgumentException("Capacity cannot be bigger than the room beds capacity.");
+		}
 
+		ArrayList<String> availableDates = findAvailableDatesForInterval(fromDate, toDate);
 		ArrayList<String> availableDateForIntervalAndSize = new ArrayList<>();
 		if (availableDates.size() == 0) {
 			return availableDateForIntervalAndSize;
@@ -319,19 +340,9 @@ public class Room {
 			LocalDate bookingFromDate = LocalDate.parse(splittedDates[0], formatter);
 			LocalDate bookingToDate = LocalDate.parse(splittedDates[1], formatter);
 
-			if (ChronoUnit.DAYS.between(bookingFromDate, bookingToDate) >= (size - 1)) {
-				availableDateForIntervalAndSize.add(availableDate);
-			}
+			availableDateForIntervalAndSize.add(availableDate);
 		}
 
 		return availableDateForIntervalAndSize;
-	}
-
-	private void validateDates(LocalDate fromDate, LocalDate toDate) {
-		if (fromDate == null) {
-			throw new IllegalArgumentException("From date cannot be null");
-		} else if (toDate == null) {
-			throw new IllegalArgumentException("To date cannot be null");
-		}
 	}
 }

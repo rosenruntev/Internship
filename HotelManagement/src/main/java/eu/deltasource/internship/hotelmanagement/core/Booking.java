@@ -74,7 +74,11 @@ public class Booking {
 	 * @param fromDate the date of accommodation
 	 * @param toDate   the date of leaving
 	 */
-	public void setBookingDates(LocalDate fromDate, LocalDate toDate) {
+	private void setBookingDates(LocalDate fromDate, LocalDate toDate) {
+		if (fromDate == null || toDate == null) {
+			throw new IllegalArgumentException("Booking dates cannot be null.");
+		}
+
 		if (!fromDate.isBefore(toDate)) {
 			if (fromDate.getDayOfMonth() != toDate.getDayOfMonth()) {
 				throw new IllegalArgumentException("From date cannot be after to date");
@@ -132,5 +136,13 @@ public class Booking {
 	private void setGuestInfo(String guestName, String guestId) {
 		setGuestName(guestName);
 		setGuestId(guestId);
+	}
+
+	public void updateBooking(LocalDate fromDate, LocalDate toDate) {
+		setBookingDates(fromDate, toDate);
+	}
+
+	public void updateBooking(String guestName, String guestId) {
+		setGuestInfo(guestName, guestId);
 	}
 }

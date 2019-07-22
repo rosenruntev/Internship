@@ -6,7 +6,7 @@ package eu.deltasource.internship.hotelmanagement.core.commodities;
 public enum BedType {
 	SINGLE(1),
 	DOUBLE(2),
-	KINGSIZE(3);
+	KINGSIZE(2);
 
 	private int capacity;
 

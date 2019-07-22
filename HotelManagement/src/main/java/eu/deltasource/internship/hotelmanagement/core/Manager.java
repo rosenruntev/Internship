@@ -2,6 +2,7 @@ package eu.deltasource.internship.hotelmanagement.core;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -28,7 +29,7 @@ public class Manager {
 	 */
 	public Manager(String name, Hotel hotel) {
 		this(name);
-		setHotel(hotel);
+		assignHotel(hotel);
 	}
 
 	/**
@@ -54,20 +55,20 @@ public class Manager {
 	}
 
 	/**
-	 * Returns the hotel of the manager.
+	 * Returns the assigned hotel
 	 *
-	 * @return the hotel of the manager
+	 * @return the assigned hotel
 	 */
 	public Hotel getHotel() {
 		return hotel;
 	}
 
 	/**
-	 * Sets the hotel of the manager.
+	 * Assigns hotel
 	 *
-	 * @param hotel the hotel to be set
+	 * @param hotel the hotel to be assigned
 	 */
-	public void setHotel(Hotel hotel) {
+	public void assignHotel(Hotel hotel) {
 		if (hotel == null) {
 			throw new IllegalArgumentException("Hotel cannot be null.");
 		}
@@ -76,56 +77,49 @@ public class Manager {
 	}
 
 	/**
-	 * Books a room by room number, accommodation and leaving dates, size, number of beds, guest name and guest id
+	 * Books a room by guest id, accommodation and leaving dates, capacity and guest name
 	 *
-	 * @param roomNumber   the number of the room to be booked
-	 * @param fromDate     the date of accommodation
-	 * @param toDate       the date of leaving
-	 * @param size         the booking period
-	 * @param numberOfBeds the number of beds
-	 * @param guestName    the name of the guest
-	 * @param guestId      the id of the guest
+	 * @param guestId   the id of the guest
+	 * @param fromDate  the date of accommodation
+	 * @param toDate    the date of leaving
+	 * @param capacity  the room beds capacity
+	 * @param guestName the name of the guest
+	 * @return the booked room number
 	 */
-	public void bookRoom(int roomNumber, LocalDate fromDate, LocalDate toDate, int size, int numberOfBeds, String guestName, String guestId) {
-		List<Room> rooms = hotel.getRooms();
-		if (fromDate == null) {
-			throw new IllegalArgumentException("From date cannot be null");
-		} else if (toDate == null) {
-			throw new IllegalArgumentException("To date cannot be null");
-		} else if (guestName == null) {
-			throw new IllegalArgumentException("Guest name cannot be null");
-		} else if (guestId == null) {
-			throw new IllegalArgumentException("Guest id cannot be null");
-		}
-
-		for (int i = 0; i < rooms.size(); i++) {
-			if (rooms.get(i).getNumber() == roomNumber) {
-				if (rooms.get(i).getNumberOfBeds() < numberOfBeds) {
-					throw new IllegalArgumentException("Not enough beds in the room.");
-				}
-
-				rooms.get(i).createBooking(fromDate, toDate, size, guestName, guestId);
+	public int createBooking(String guestId, LocalDate fromDate, LocalDate toDate, int capacity, String guestName) {
+		List<Room> hotelRooms = hotel.getRooms();
+		int roomNumber = 0;
+		for (Room room : hotelRooms) {
+			if (!room.isBooked(fromDate, toDate)) {
+				room.createBooking(fromDate, toDate, capacity, guestName, guestId);
+				roomNumber = room.getNumber();
 			}
 		}
+
+		return roomNumber;
 	}
 
 	/**
-	 * Finds the available rooms of the hotel
+	 * Finds the available rooms of the hotel for period and capacity
 	 *
-	 * @param fromDate     the date of accommodation
-	 * @param toDate       the date of leaving
-	 * @param size         the booking period
-	 * @param numberOfBeds the number of beds
+	 * @param fromDate the date of accommodation
+	 * @param toDate   the date of leaving
+	 * @param capacity the room beds capacity
 	 */
-	public void findAvailableDatesForIntervalAndSizeForRooms(LocalDate fromDate, LocalDate toDate, int size, int numberOfBeds) {
+	public LinkedHashMap<Integer, ArrayList<String>> findAvailableDatesForIntervalAndSizeForRooms(LocalDate fromDate, LocalDate toDate, int capacity) {
 		List<Room> rooms = hotel.getRooms();
-		for (int i = 0; i < rooms.size(); i++) {
-			if (rooms.get(i).getNumberOfBeds() >= numberOfBeds) {
-				ArrayList<String> availableDates = rooms.get(i).findAvailableDatesForIntervalAndSize(fromDate, toDate, size);
+		LinkedHashMap<Integer, ArrayList<String>> roomsWithAvailableDates = new LinkedHashMap<>();
+		for (Room currentRoom : rooms) {
+			if (currentRoom.getBedsCapacity() >= capacity) {
+				ArrayList<String> availableDates = currentRoom.findAvailableDatesForIntervalAndSize(fromDate, toDate, capacity);
+				roomsWithAvailableDates.put(currentRoom.getNumber(), new ArrayList<>());
 				for (String availableDate : availableDates) {
+					roomsWithAvailableDates.get(currentRoom.getNumber()).add(availableDate);
 					System.out.println(availableDate);
 				}
 			}
 		}
+
+		return roomsWithAvailableDates;
 	}
 }
