@@ -73,7 +73,7 @@ public class Hotel {
 		this.rooms = new ArrayList<>(rooms);
 	}
 
-	public int getInventoryNumber() {
+	public int getNextInventoryNumber() {
 		inventoryNumber++;
 		return inventoryNumber;
 	}
