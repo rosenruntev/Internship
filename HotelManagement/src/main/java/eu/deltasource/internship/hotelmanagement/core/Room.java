@@ -96,7 +96,7 @@ public class Room {
 		}
 
 		commodities.add(commodity);
-		commodity.setInventoryNumber(commodities.size());
+		commodity.setInventoryNumber(Hotel.getNextInventoryNumber());
 	}
 
 	/**
