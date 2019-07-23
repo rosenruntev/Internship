@@ -14,21 +14,21 @@ public class HotelServiceApplication {
 
 		// Creating rooms and adding commodities
 		Room firstRoom = new Room(1);
-		firstRoom.getCommodities().add(new Bed(1, BedType.DOUBLE));
-		firstRoom.getCommodities().add(new Shower(2));
-		firstRoom.getCommodities().add(new Toilet(3));
+		firstRoom.addCommodity(new Bed(BedType.DOUBLE));
+		firstRoom.addCommodity(new Shower());
+		firstRoom.addCommodity(new Toilet());
 		Room secondRoom = new Room(2);
-		secondRoom.getCommodities().add(new Bed(1, BedType.SINGLE));
-		secondRoom.getCommodities().add(new Bed(2, BedType.SINGLE));
-		secondRoom.getCommodities().add(new Bed(3, BedType.SINGLE));
-		secondRoom.getCommodities().add(new Shower(4));
-		secondRoom.getCommodities().add(new Toilet(5));
-		secondRoom.getCommodities().add(new Toilet(6));
+		secondRoom.addCommodity(new Bed(BedType.SINGLE));
+		secondRoom.addCommodity(new Bed(BedType.SINGLE));
+		secondRoom.addCommodity(new Bed(BedType.SINGLE));
+		secondRoom.addCommodity(new Shower());
+		secondRoom.addCommodity(new Toilet());
+		secondRoom.addCommodity(new Toilet());
 		Room thirdRoom = new Room(3);
-		thirdRoom.getCommodities().add(new Bed(1, BedType.SINGLE));
-		thirdRoom.getCommodities().add(new Bed(2, BedType.SINGLE));
-		thirdRoom.getCommodities().add(new Shower(3));
-		thirdRoom.getCommodities().add(new Toilet(4));
+		thirdRoom.addCommodity(new Bed(BedType.SINGLE));
+		thirdRoom.addCommodity(new Bed(BedType.SINGLE));
+		thirdRoom.addCommodity(new Shower());
+		thirdRoom.addCommodity(new Toilet());
 
 		// Adding rooms to the hotel
 		Hotel hotel = new Hotel("Hotel");
