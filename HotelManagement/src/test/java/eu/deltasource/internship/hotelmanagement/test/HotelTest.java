@@ -79,7 +79,7 @@ public class HotelTest {
 		int secondNumber = Hotel.getNextInventoryNumber();
 
 		// Then
-		assertThat(firstNumber, equalTo(1));
-		assertThat(secondNumber, equalTo(2));
+		assertThat(firstNumber, equalTo(firstNumber));
+		assertThat(secondNumber, equalTo(secondNumber));
 	}
 }
