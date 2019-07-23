@@ -3,6 +3,9 @@ package eu.deltasource.internship.hotelmanagement.test;
 import eu.deltasource.internship.hotelmanagement.core.Booking;
 import eu.deltasource.internship.hotelmanagement.core.Room;
 import eu.deltasource.internship.hotelmanagement.core.commodities.Bed;
+import eu.deltasource.internship.hotelmanagement.core.commodities.BedType;
+import eu.deltasource.internship.hotelmanagement.core.commodities.Shower;
+import eu.deltasource.internship.hotelmanagement.core.commodities.Toilet;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -15,59 +18,80 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class RoomTest {
 	@Test
 	public void setNumberShouldThrowExceptionWhenSettingNegativeRoomNumber() {
+		// Then
 		assertThrows(IllegalArgumentException.class, () -> {
-			Room room = new Room(-1);
+			// When
+			new Room(-1);
 		});
 	}
 
 	@Test
-	public void roomShouldBeBookedAfterBookingIt() {
-		// given
+	public void addCommodityShouldSetCorrectInventoryNumber() {
+		// Given
 		Room room = new Room(1);
-		room.getCommodities().add(new Bed(1, 1));
+		Bed bed = new Bed(BedType.SINGLE);
+		Shower shower = new Shower();
+		Toilet toilet = new Toilet();
+
+		// When
+		room.addCommodity(bed);
+		room.addCommodity(shower);
+		room.addCommodity(toilet);
+
+		// Then
+		assertThat(bed.getInventoryNumber(), equalTo(1));
+		assertThat(shower.getInventoryNumber(), equalTo(2));
+		assertThat(toilet.getInventoryNumber(), equalTo(3));
+	}
+
+	@Test
+	public void roomShouldBeBookedForPeriodAfterBookingIt() {
+		// Given
+		Room room = new Room(1);
+		room.addCommodity(new Bed(BedType.SINGLE));
 		LocalDate fromDate = LocalDate.of(2019, 7, 16);
 		LocalDate toDate = LocalDate.of(2019, 7, 20);
 
-		// when
-		room.createBooking(fromDate, toDate, 4, "guest name", "001");
+		// When
+		room.createBooking(fromDate, toDate, 1, "guest name", "001");
 
-		// then
+		// Then
 		assertThat(room.isBooked(fromDate, toDate), equalTo(true));
 	}
 
 	@Test
 	public void roomShouldBeFreeIfThereIsNotBookingForThatPeriod() {
-		// given
+		// Given
 		Room room = new Room(1);
-		room.getCommodities().add(new Bed(1, 1));
+		room.getCommodities().add(new Bed(BedType.SINGLE));
 		LocalDate fromDate = LocalDate.of(2019, 7, 16);
 		LocalDate toDate = LocalDate.of(2019, 7, 20);
 
-		// then
+		// Then
 		assertThat(room.isBooked(fromDate, toDate), equalTo(false));
 	}
+
+	@Test
+	public void getBedsCapacityShouldReturnCorrectCapacity() {
+		// Given
+		Room room = new Room(1);
+
+		// When
+		room.addCommodity(new Bed(BedType.SINGLE));
+		room.addCommodity(new Bed(BedType.DOUBLE));
+		room.addCommodity(new Bed(BedType.KINGSIZE));
+
+		// Then
+		assertThat(room.getBedsCapacity(), equalTo(5));
+	}
+
 
 	@Test
 	public void createBookingShouldCreateNewBooking() {
 		// Given
 		Room room = new Room(1);
+		room.addCommodity(new Bed(BedType.SINGLE));
 		LocalDate fromDate = LocalDate.of(2019, 7, 16);
-		LocalDate toDate = LocalDate.of(2019, 7, 20);
-
-		// When
-		room.createBooking(fromDate, toDate, 4, "guest name", "001");
-
-		// Then
-		Booking booking = room.getBookings().get(0);
-		assertTrue(booking.getFromDate().equals(fromDate));
-		assertTrue(booking.getToDate().equals(toDate));
-	}
-
-	@Test
-	public void createBookingShouldBeAbleToCreateABookingForADay() {
-		// Given
-		Room room = new Room(1);
-		LocalDate fromDate = LocalDate.of(2019, 7, 20);
 		LocalDate toDate = LocalDate.of(2019, 7, 20);
 
 		// When
@@ -80,11 +104,28 @@ public class RoomTest {
 	}
 
 	@Test
+	public void createBookingShouldBeAbleToCreateABookingForADay() {
+		// Given
+		Room room = new Room(1);
+		room.addCommodity(new Bed(BedType.SINGLE));
+		LocalDate date = LocalDate.of(2019, 7, 20);
+
+		// When
+		room.createBooking(date, date, 1, "guest name", "001");
+
+		// Then
+		Booking booking = room.getBookings().get(0);
+		assertTrue(booking.getFromDate().equals(date));
+		assertTrue(booking.getToDate().equals(date));
+	}
+
+	@Test
 	public void removeBookingShouldBeAbleToRemoveBooking() {
 		// Given
 		Room room = new Room(1);
+		room.addCommodity(new Bed(BedType.SINGLE));
 		LocalDate fromDate = LocalDate.of(2019, 7, 20);
-		LocalDate toDate = LocalDate.of(2019, 7, 20);
+		LocalDate toDate = LocalDate.of(2019, 7, 25);
 		room.createBooking(fromDate, toDate, 1, "guest name", "001");
 
 		// Then
