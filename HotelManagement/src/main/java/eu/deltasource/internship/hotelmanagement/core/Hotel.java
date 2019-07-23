@@ -75,6 +75,7 @@ public class Hotel {
 
 	/**
 	 * Returns id of the commodity
+	 *
 	 * @return id of the commodity
 	 */
 	public static int getNextInventoryNumber() {
