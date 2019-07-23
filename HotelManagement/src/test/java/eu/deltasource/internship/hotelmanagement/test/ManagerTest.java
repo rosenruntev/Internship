@@ -16,28 +16,28 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class ManagerTest {
 	@Test
 	public void setNameShouldThrowExceptionWhenNameIsNull() {
-		// then
+		// Then
 		assertThrows(IllegalArgumentException.class, () -> {
-			// when
+			// When
 			new Manager(null);
 		});
 	}
 
 	@Test
 	public void assignHotelShouldThrowExceptionWhenHotelIsNull() {
-		// then
+		// Then
 		assertThrows(IllegalArgumentException.class, () -> {
-			// given
+			// Given
 			Manager manager = new Manager("Manager");
 
-			// when
+			// When
 			manager.assignHotel(null);
 		});
 	}
 
 	@Test
 	public void roomShouldBeBookedAfterManagerBooksIt() {
-		// given
+		// Given
 		Room room = new Room(1);
 		room.getCommodities().add(new Bed(BedType.SINGLE));
 
@@ -50,10 +50,10 @@ public class ManagerTest {
 		LocalDate fromDate = LocalDate.of(2019, 7, 15);
 		LocalDate toDate = LocalDate.of(2019, 7, 20);
 
-		// when
+		// When
 		manager.createBooking("1", fromDate, toDate, 1, "guestName");
 
-		// then
+		// Then
 		assertThat(room.isBooked(fromDate, toDate), equalTo(true));
 	}
 }

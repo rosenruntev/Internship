@@ -21,27 +21,27 @@ public class HotelTest {
 
 	@Test
 	public void setNameShouldThrowExceptionWhenNameIsNull() {
-		// then
+		// Then
 		assertThrows(IllegalArgumentException.class, () -> {
-			// when
+			// When
 			new Hotel(null);
 		});
 	}
 
 	@Test
 	public void setNameShouldThrowExceptionWhenNameIsEmpty() {
-		// then
+		// Then
 		assertThrows(IllegalArgumentException.class, () -> {
-			// when
+			// When
 			new Hotel("");
 		});
 	}
 
 	@Test
 	public void setRoomsToNullShouldThrowException() {
-		// then
+		// Then
 		assertThrows(IllegalArgumentException.class, () -> {
-			// when
+			// When
 			new Hotel("", null);
 		});
 	}
