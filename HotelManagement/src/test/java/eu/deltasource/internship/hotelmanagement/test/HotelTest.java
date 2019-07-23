@@ -50,11 +50,11 @@ public class HotelTest {
 	public void findAvailableRoomsShouldReturnAllOfTheAvailableRooms() {
 		// Given
 		Set<AbstractCommodity> firstRoomCommodities = new HashSet<>();
-		Bed firstRoomBed = new Bed(1, BedType.SINGLE);
+		Bed firstRoomBed = new Bed(BedType.SINGLE);
 		firstRoomCommodities.add(firstRoomBed);
 
 		Set<AbstractCommodity> secondRoomCommodities = new HashSet<>();
-		Bed secondRoomBed = new Bed(2, BedType.DOUBLE);
+		Bed secondRoomBed = new Bed(BedType.DOUBLE);
 		secondRoomCommodities.add(secondRoomBed);
 
 		List<Room> rooms = new ArrayList<>();
@@ -70,5 +70,14 @@ public class HotelTest {
 
 		// Then
 		assertThat(availableRooms.size(), equalTo(1));
+	}
+
+	@Test
+	public void getNextInventoryNumberShouldIncrease() {
+		int firstNumber = Hotel.getNextInventoryNumber();
+		int secondNumber = Hotel.getNextInventoryNumber();
+
+		assertThat(firstNumber, equalTo(1));
+		assertThat(secondNumber, equalTo(2));
 	}
 }
