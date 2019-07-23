@@ -74,9 +74,11 @@ public class HotelTest {
 
 	@Test
 	public void getNextInventoryNumberShouldIncrease() {
+		// When
 		int firstNumber = Hotel.getNextInventoryNumber();
 		int secondNumber = Hotel.getNextInventoryNumber();
 
+		// Then
 		assertThat(firstNumber, equalTo(1));
 		assertThat(secondNumber, equalTo(2));
 	}
