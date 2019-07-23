@@ -7,13 +7,11 @@ public class Bed extends AbstractCommodity {
 	private BedType type;
 
 	/**
-	 * Constructs a bed with given inventory number and type
+	 * Constructs a bed with given bed type
 	 *
-	 * @param inventoryNumber the id of the bed in the inventory
-	 * @param type            the bed type
+	 * @param type the bed type
 	 */
-	public Bed(int inventoryNumber, BedType type) {
-		super(inventoryNumber);
+	public Bed(BedType type) {
 		setType(type);
 	}
 
