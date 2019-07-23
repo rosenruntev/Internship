@@ -1,4 +1,4 @@
-package eu.deltasource.internship.hotelmanagement.core;
+package eu.deltasource.internship.hotelmanagement.core.exceptions;
 
 /**
  * Thrown to indicate that there are not available rooms
