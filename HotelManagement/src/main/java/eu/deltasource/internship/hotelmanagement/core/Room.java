@@ -83,6 +83,9 @@ public class Room {
 		}
 
 		this.commodities = new HashSet<>(commodities);
+		for (AbstractCommodity commodity : commodities) {
+			commodity.setInventoryNumber(Hotel.getNextInventoryNumber());
+		}
 	}
 
 	/**
