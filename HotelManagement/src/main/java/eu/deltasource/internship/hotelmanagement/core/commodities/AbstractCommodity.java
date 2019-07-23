@@ -16,10 +16,8 @@ public abstract class AbstractCommodity {
 	}
 
 	public void setInventoryNumber(int inventoryNumber) {
-		if (inventoryNumber < 0) {
-			throw new IllegalArgumentException("Inventory number cannot be negative.");
-		} else if (inventoryNumber != 0) {
-			throw new IllegalArgumentException("Inventory number is already set.");
+		if (inventoryNumber <= 0) {
+			throw new IllegalArgumentException("Inventory number cannot be negative or zero.");
 		}
 
 		this.inventoryNumber = inventoryNumber;

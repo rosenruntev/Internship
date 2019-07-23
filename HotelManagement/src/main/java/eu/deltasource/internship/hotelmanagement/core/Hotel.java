@@ -10,6 +10,7 @@ import java.util.List;
 public class Hotel {
 	private String name;
 	private List<Room> rooms;
+	private static int inventoryNumber;
 
 	/**
 	 * Constructs a hotel with given name
@@ -19,6 +20,7 @@ public class Hotel {
 	public Hotel(String name) {
 		setName(name);
 		rooms = new ArrayList<>();
+		inventoryNumber = 0;
 	}
 
 	/**
@@ -69,6 +71,15 @@ public class Hotel {
 		}
 
 		this.rooms = new ArrayList<>(rooms);
+	}
+
+	/**
+	 * Returns id of the commodity
+	 * @return id of the commodity
+	 */
+	public static int getNextInventoryNumber() {
+		inventoryNumber++;
+		return inventoryNumber;
 	}
 
 	/**
