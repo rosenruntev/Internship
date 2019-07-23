@@ -82,9 +82,9 @@ public class Room {
 			throw new IllegalArgumentException("Commodities set cannot be null or empty.");
 		}
 
-		this.commodities = new HashSet<>(commodities);
+		this.commodities = new HashSet<>();
 		for (AbstractCommodity commodity : commodities) {
-			commodity.setInventoryNumber(Hotel.getNextInventoryNumber());
+			addCommodity(commodity);
 		}
 	}
 
