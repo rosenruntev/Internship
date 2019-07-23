@@ -92,14 +92,18 @@ public class Room {
 	 * Adds commodity to room commodities.
 	 *
 	 * @param commodity the commodity to add
+	 * @return the inventory number of the commodity
 	 */
-	public void addCommodity(AbstractCommodity commodity) {
+	public int addCommodity(AbstractCommodity commodity) {
 		if (commodity == null) {
 			throw new IllegalArgumentException("Commodity cannot be null.");
 		}
 
 		commodities.add(commodity);
-		commodity.setInventoryNumber(Hotel.getNextInventoryNumber());
+		int inventoryNumber = Hotel.getNextInventoryNumber();
+		commodity.setInventoryNumber(inventoryNumber);
+
+		return inventoryNumber;
 	}
 
 	/**
