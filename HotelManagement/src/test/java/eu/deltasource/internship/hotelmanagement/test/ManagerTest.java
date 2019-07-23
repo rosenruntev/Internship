@@ -39,7 +39,7 @@ public class ManagerTest {
 	public void roomShouldBeBookedAfterManagerBooksIt() {
 		// given
 		Room room = new Room(1);
-		room.getCommodities().add(new Bed(1, BedType.SINGLE));
+		room.getCommodities().add(new Bed(BedType.SINGLE));
 
 		Hotel hotel = new Hotel("Hotel");
 		hotel.getRooms().add(room);
