@@ -34,14 +34,14 @@ public class RoomTest {
 		Toilet toilet = new Toilet();
 
 		// When
-		room.addCommodity(bed);
-		room.addCommodity(shower);
-		room.addCommodity(toilet);
+		int bedInventoryNumber = room.addCommodity(bed);
+		int showerInventoryNumber = room.addCommodity(shower);
+		int toiletInventoryNumber = room.addCommodity(toilet);
 
 		// Then
-		assertThat(bed.getInventoryNumber(), equalTo(1));
-		assertThat(shower.getInventoryNumber(), equalTo(2));
-		assertThat(toilet.getInventoryNumber(), equalTo(3));
+		assertThat(bed.getInventoryNumber(), equalTo(bedInventoryNumber));
+		assertThat(shower.getInventoryNumber(), equalTo(showerInventoryNumber));
+		assertThat(toilet.getInventoryNumber(), equalTo(toiletInventoryNumber));
 	}
 
 	@Test
