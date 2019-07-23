@@ -7,15 +7,6 @@ public abstract class AbstractCommodity {
 	private int inventoryNumber;
 
 	/**
-	 * Constructor to set inventory number to commodity
-	 *
-	 * @param inventoryNumber the inventory number of commodity
-	 */
-	public AbstractCommodity(int inventoryNumber) {
-		setInventoryNumber(inventoryNumber);
-	}
-
-	/**
 	 * Prepares the commodity for the customer
 	 */
 	public abstract void prepare();
@@ -24,9 +15,11 @@ public abstract class AbstractCommodity {
 		return inventoryNumber;
 	}
 
-	private void setInventoryNumber(int inventoryNumber) {
-		if (inventoryNumber <= 0) {
-			throw new IllegalArgumentException("Inventory number cannot be negative or zero.");
+	public void setInventoryNumber(int inventoryNumber) {
+		if (inventoryNumber < 0) {
+			throw new IllegalArgumentException("Inventory number cannot be negative.");
+		} else if (inventoryNumber != 0) {
+			throw new IllegalArgumentException("Inventory number is already set.");
 		}
 
 		this.inventoryNumber = inventoryNumber;
