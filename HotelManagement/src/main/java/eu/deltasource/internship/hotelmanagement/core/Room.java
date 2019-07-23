@@ -86,6 +86,20 @@ public class Room {
 	}
 
 	/**
+	 * Adds commodity to room commodities.
+	 *
+	 * @param commodity the commodity to add
+	 */
+	public void addCommodity(AbstractCommodity commodity) {
+		if (commodity == null) {
+			throw new IllegalArgumentException("Commodity cannot be null.");
+		}
+
+		commodities.add(commodity);
+		commodity.setInventoryNumber(commodities.size());
+	}
+
+	/**
 	 * Returns true if the room is booked for that period otherwise false
 	 *
 	 * @param fromDate the date of accommodation
