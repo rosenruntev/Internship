@@ -5,7 +5,6 @@ import eu.deltasource.internship.hotelmanagement.core.commodities.Bed;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -215,29 +214,24 @@ public class Room {
 	}
 
 	/**
-	 * Finds booked days for interval given by the customer.
+	 * Returns booked dates for interval given by the customer.
 	 *
 	 * @param fromDate the date of accommodation
 	 * @param toDate   the date of leaving
-	 * @return list with booked days in interval
+	 * @return list with booked dates in interval
 	 */
-	private ArrayList<String> findBookedDays(LocalDate fromDate, LocalDate toDate) {
-		ArrayList<String> bookedDays = new ArrayList<>();
+	private ArrayList<LocalDate> getBookedDates(LocalDate fromDate, LocalDate toDate) {
+		ArrayList<LocalDate> bookedDays = new ArrayList<>();
 		for (Booking booking : bookings) {
 			LocalDate bookingFromDate = booking.getFromDate();
 			LocalDate bookingToDate = booking.getToDate();
-			int bookingFromDateMonth = bookingFromDate.getMonthValue();
-			if (bookingFromDateMonth == fromDate.getMonthValue() ||
-				bookingToDate.getMonthValue() == fromDate.getMonthValue() ||
-				bookingFromDateMonth == toDate.getMonthValue() ||
-				bookingToDate.getMonthValue() == toDate.getMonthValue()) {
+			if (!(bookingToDate.isBefore(fromDate) || bookingFromDate.isAfter(toDate))) {
 				while (!bookingFromDate.equals(bookingToDate)) {
-					bookedDays.add(bookingFromDate.getDayOfMonth() + "." + bookingFromDateMonth);
+					bookedDays.add(bookingFromDate);
 					bookingFromDate = bookingFromDate.plusDays(1);
 				}
 
-				// Adds the day of leaving to booked days
-				bookedDays.add(bookingFromDate.getDayOfMonth() + "." + bookingFromDateMonth);
+				bookedDays.add(bookingFromDate);
 			}
 		}
 
@@ -245,41 +239,24 @@ public class Room {
 	}
 
 	/**
-	 * Finds available days for interval given by the customer
+	 * Returns available dates for interval given by the customer
 	 *
 	 * @param fromDate the date of accommodation
 	 * @param toDate   the date of leaving
-	 * @return list with available days in interval
+	 * @return list with available dates in interval
 	 */
-	private ArrayList<String> findAvailableDays(LocalDate fromDate, LocalDate toDate) {
-		ArrayList<String> bookedDays = findBookedDays(fromDate, toDate);
-		ArrayList<String> availableDays = new ArrayList<>();
-		int fromDateDay = fromDate.getDayOfMonth();
-		int fromDateMonth = fromDate.getMonthValue();
-		int toDateDay = toDate.getDayOfMonth();
-		int toDateMonth = toDate.getMonthValue();
-
-		// Check if booking is for one day
-		if (fromDateDay == toDateDay && fromDateMonth == toDateMonth) {
-			if (!bookedDays.contains(fromDateDay + "." + fromDateMonth)) {
-				availableDays.add(fromDateDay + "." + fromDateMonth);
-			}
-
-			return availableDays;
-		}
-
+	private ArrayList<LocalDate> getAvailableDates(LocalDate fromDate, LocalDate toDate) {
+		ArrayList<LocalDate> bookedDays = getBookedDates(fromDate, toDate);
+		ArrayList<LocalDate> availableDays = new ArrayList<>();
 		while (!fromDate.equals(toDate)) {
-			if (!bookedDays.contains(fromDateDay + "." + fromDateMonth)) {
-				availableDays.add(fromDateDay + "." + fromDateMonth);
+			if (!bookedDays.contains(fromDate)) {
+				availableDays.add(fromDate);
 			}
 
 			fromDate = fromDate.plusDays(1);
-			fromDateDay = fromDate.getDayOfMonth();
-			fromDateMonth = fromDate.getMonthValue();
 		}
 
-		// Adds the last day
-		availableDays.add(fromDateDay + "." + fromDateMonth);
+		availableDays.add(fromDate);
 
 		return availableDays;
 	}
@@ -289,81 +266,36 @@ public class Room {
 	 *
 	 * @param fromDate the date of accommodation
 	 * @param toDate   the date of leaving
-	 * @return list with available dates in interval
+	 * @return list of date arrays with available dates in interval
 	 */
-	private ArrayList<String> findAvailableDatesForInterval(LocalDate fromDate, LocalDate toDate) {
-		ArrayList<String> availableDays = findAvailableDays(fromDate, toDate);
-
-		ArrayList<String> availableDates = new ArrayList<>();
+	public ArrayList<LocalDate[]> findAvailableDatesForInterval(LocalDate fromDate, LocalDate toDate) {
+		validateDates(fromDate, toDate);
+		ArrayList<LocalDate> availableDays = getAvailableDates(fromDate, toDate);
 		if (availableDays.size() == 0) {
-			return availableDates;
+			return new ArrayList<LocalDate[]>();
 		}
 
-		int elementIndex = 1;
+		ArrayList<LocalDate[]> availableDates = new ArrayList<>();
 		int daysInARow = 1;
 		int startingIndex = 0;
-		int month = fromDate.getMonthValue();
-		while (true) {
-			if (elementIndex == availableDays.size()) {
-				availableDates.add(fromDate.getYear() + "-" + fromDate.getMonthValue() + "-" +
-					availableDays.get(startingIndex).split("\\.")[0] + " to " + fromDate.getYear() + "-" +
-					month + "-" + availableDays.get(startingIndex + daysInARow - 1).split("\\.")[0]);
-				break;
-			}
-
-			int currentElementDay = Integer.parseInt(availableDays.get(elementIndex).split("\\.")[0]);
-			int previousElementDay = Integer.parseInt(availableDays.get(elementIndex - 1).split("\\.")[0]);
-			if (currentElementDay == previousElementDay + 1) {
+		for (int i = 1; i < availableDays.size(); i++) {
+			LocalDate currentDate = availableDays.get(i);
+			LocalDate previousDate = availableDays.get(i - 1);
+			if (currentDate.getDayOfMonth() == previousDate.plusDays(1).getDayOfMonth()) {
 				daysInARow++;
-			} else if (previousElementDay == 30 && currentElementDay == 1 || previousElementDay == 31 && currentElementDay == 1) {
-				daysInARow++;
-				month++;
 			} else {
-				availableDates.add(fromDate.getYear() + "-" + fromDate.getMonthValue() + "-" +
-					availableDays.get(startingIndex).split("\\.")[0] + " to " + fromDate.getYear() + "-" +
-					month + "-" + availableDays.get(startingIndex + daysInARow - 1).split("\\.")[0]);
-				startingIndex = elementIndex;
+				LocalDate from = LocalDate.of(currentDate.getYear(), currentDate.getMonthValue(),
+					availableDays.get(startingIndex).getDayOfMonth());
+				LocalDate to = LocalDate.of(currentDate.getYear(), currentDate.getMonthValue(),
+					availableDays.get(startingIndex + daysInARow - 1).getDayOfMonth());
+				LocalDate[] availableInterval = {from, to};
+				availableDates.add(availableInterval);
+
+				startingIndex = i;
 				daysInARow = 1;
 			}
-
-			elementIndex++;
 		}
 
 		return availableDates;
-	}
-
-	/**
-	 * Finds available dates for interval and size given by the customer
-	 *
-	 * @param fromDate the date of accommodation
-	 * @param toDate   the date of leaving
-	 * @param capacity the room beds capacity
-	 * @return list with available dates for interval and size
-	 */
-	public ArrayList<String> findAvailableDatesForIntervalAndSize(LocalDate fromDate, LocalDate toDate, int capacity) {
-		validateDates(fromDate, toDate);
-		if (capacity < 1) {
-			throw new IllegalArgumentException("Room beds capacity cannot be a negative number or zero.");
-		} else if (capacity > getBedsCapacity()) {
-			throw new IllegalArgumentException("Capacity cannot be bigger than the room beds capacity.");
-		}
-
-		ArrayList<String> availableDates = findAvailableDatesForInterval(fromDate, toDate);
-		ArrayList<String> availableDateForIntervalAndSize = new ArrayList<>();
-		if (availableDates.size() == 0) {
-			return availableDateForIntervalAndSize;
-		}
-
-		for (String availableDate : availableDates) {
-			String[] splittedDates = availableDate.split(" to ");
-
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-M-d");
-			LocalDate bookingFromDate = LocalDate.parse(splittedDates[0], formatter);
-			LocalDate bookingToDate = LocalDate.parse(splittedDates[1], formatter);
-
-			availableDateForIntervalAndSize.add(availableDate);
-		}
-
-		return availableDateForIntervalAndSize;
 	}
 }
