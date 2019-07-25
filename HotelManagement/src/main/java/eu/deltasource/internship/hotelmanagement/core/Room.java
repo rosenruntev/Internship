@@ -257,7 +257,6 @@ public class Room {
 		}
 
 		availableDays.add(fromDate);
-
 		return availableDays;
 	}
 
