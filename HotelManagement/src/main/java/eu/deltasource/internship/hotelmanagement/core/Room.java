@@ -256,7 +256,9 @@ public class Room {
 			fromDate = fromDate.plusDays(1);
 		}
 
-		availableDays.add(fromDate);
+		if (!bookedDays.contains(fromDate)) {
+			availableDays.add(fromDate);
+		}
 		return availableDays;
 	}
 
