@@ -107,16 +107,18 @@ public class Manager {
 	 * @param toDate   the date of leaving
 	 * @param capacity the room beds capacity
 	 */
-	public LinkedHashMap<Integer, ArrayList<LocalDate[]>> findAvailableDatesForIntervalAndSizeForRooms(LocalDate fromDate, LocalDate toDate, int capacity) {
+	public LinkedHashMap<Integer, ArrayList<LocalDate[]>> findAvailableRoomsForInterval(LocalDate fromDate, LocalDate toDate, int capacity) {
 		List<Room> rooms = hotel.getRooms();
-		LinkedHashMap<Integer, ArrayList<LocalDate[]>> roomsWithAvailableDates = new LinkedHashMap<>();
+		LinkedHashMap<Integer, ArrayList<LocalDate[]>> roomsWithAvailableDatesForInterval = new LinkedHashMap<>();
 		for (Room currentRoom : rooms) {
 			if (currentRoom.getBedsCapacity() >= capacity) {
 				ArrayList<LocalDate[]> availableDates = currentRoom.findAvailableDatesForInterval(fromDate, toDate);
-				roomsWithAvailableDates.put(currentRoom.getNumber(), availableDates);
+				if (!availableDates.isEmpty()) {
+					roomsWithAvailableDatesForInterval.put(currentRoom.getNumber(), availableDates);
+				}
 			}
 		}
 
-		return roomsWithAvailableDates;
+		return roomsWithAvailableDatesForInterval;
 	}
 }
