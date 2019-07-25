@@ -9,11 +9,11 @@ import eu.deltasource.internship.hotelmanagement.core.commodities.Toilet;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class RoomTest {
 	@Test
@@ -130,5 +130,38 @@ public class RoomTest {
 
 		// Then
 		assertTrue(room.removeBooking(fromDate, toDate));
+	}
+
+	@Test
+	public void findAvailableDatesForIntervalShouldReturnEmptyListWhenThereAreNotAnyAvailableDates() {
+		// Given
+		Room room = new Room(1);
+		room.addCommodity(new Bed(BedType.SINGLE));
+		room.createBooking(LocalDate.of(2019, 7, 10),
+			LocalDate.of(2019, 7, 20), 1, "guest name", "guest id");
+
+		// When
+		ArrayList<LocalDate[]> availableDates = room
+			.findAvailableDatesForInterval(LocalDate.of(2019, 7, 10),
+				LocalDate.of(2019, 7, 20));
+
+		// Then
+		assertEquals(0, availableDates.size());
+	}
+
+	@Test
+	public void findAvailableDatesForIntervalShouldReturnCorrectDateIntervals() {
+		// Given
+		Room room = new Room(1);
+		room.addCommodity(new Bed(BedType.SINGLE));
+		LocalDate from = LocalDate.of(2019, 7, 1);
+		LocalDate to = LocalDate.of(2019, 7, 31);
+
+		// When
+		ArrayList<LocalDate[]> availableDates = room.findAvailableDatesForInterval(from, to);
+
+		// Then
+		assertEquals(from, availableDates.get(0)[0]);
+		assertEquals(to, availableDates.get(0)[1]);
 	}
 }
