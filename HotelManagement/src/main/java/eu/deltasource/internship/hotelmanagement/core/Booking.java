@@ -80,9 +80,7 @@ public class Booking {
 		}
 
 		if (!fromDate.isBefore(toDate)) {
-			if (fromDate.getDayOfMonth() != toDate.getDayOfMonth()) {
-				throw new IllegalArgumentException("From date cannot be after to date");
-			}
+			throw new IllegalArgumentException("From date cannot be after to date");
 		}
 
 		setFromDate(fromDate);
