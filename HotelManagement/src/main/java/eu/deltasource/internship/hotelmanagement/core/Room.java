@@ -207,9 +207,7 @@ public class Room {
 		if (fromDate == null || toDate == null) {
 			throw new IllegalArgumentException("From and to dates cannot be null");
 		} else if (!fromDate.isBefore(toDate)) {
-			if (fromDate.getDayOfMonth() != toDate.getDayOfMonth()) {
-				throw new IllegalArgumentException("From date cannot be after to date");
-			}
+			throw new IllegalArgumentException("From date cannot be after to date");
 		}
 	}
 
@@ -277,13 +275,29 @@ public class Room {
 		}
 
 		ArrayList<LocalDate[]> availableDates = new ArrayList<>();
+		if (availableDays.size() == 1) {
+			LocalDate date = availableDays.get(0);
+			LocalDate[] availableInterval = {date, date};
+			availableDates.add(availableInterval);
+			return availableDates;
+		}
+
 		int daysInARow = 1;
 		int startingIndex = 0;
 		for (int i = 1; i < availableDays.size(); i++) {
 			LocalDate currentDate = availableDays.get(i);
 			LocalDate previousDate = availableDays.get(i - 1);
-			if (currentDate.getDayOfMonth() == previousDate.plusDays(1).getDayOfMonth()) {
+			if (currentDate.equals(previousDate.plusDays(1))) {
 				daysInARow++;
+
+				if (i == availableDays.size() - 1) {
+					LocalDate from = LocalDate.of(currentDate.getYear(), currentDate.getMonthValue(),
+						availableDays.get(startingIndex).getDayOfMonth());
+					LocalDate to = LocalDate.of(currentDate.getYear(), currentDate.getMonthValue(),
+						availableDays.get(startingIndex + daysInARow - 1).getDayOfMonth());
+					LocalDate[] availableInterval = {from, to};
+					availableDates.add(availableInterval);
+				}
 			} else {
 				LocalDate from = LocalDate.of(currentDate.getYear(), currentDate.getMonthValue(),
 					availableDays.get(startingIndex).getDayOfMonth());

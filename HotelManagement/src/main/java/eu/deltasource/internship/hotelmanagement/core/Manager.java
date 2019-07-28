@@ -111,7 +111,7 @@ public class Manager {
 		List<Room> rooms = hotel.getRooms();
 		LinkedHashMap<Integer, ArrayList<LocalDate[]>> roomsWithAvailableDatesForInterval = new LinkedHashMap<>();
 		for (Room currentRoom : rooms) {
-			if (currentRoom.getBedsCapacity() >= capacity) {
+			if (currentRoom.getBedsCapacity() == capacity) {
 				ArrayList<LocalDate[]> availableDates = currentRoom.findAvailableDatesForInterval(fromDate, toDate);
 				if (!availableDates.isEmpty()) {
 					roomsWithAvailableDatesForInterval.put(currentRoom.getNumber(), availableDates);

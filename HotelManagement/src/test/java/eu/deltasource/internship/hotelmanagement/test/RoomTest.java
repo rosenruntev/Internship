@@ -108,15 +108,16 @@ public class RoomTest {
 		// Given
 		Room room = new Room(1);
 		room.addCommodity(new Bed(BedType.SINGLE));
-		LocalDate date = LocalDate.of(2019, 7, 20);
+		LocalDate from = LocalDate.of(2019, 7, 20);
+		LocalDate to = LocalDate.of(2019, 7, 21);
 
 		// When
-		room.createBooking(date, date, 1, "guest name", "001");
+		room.createBooking(from, to, 1, "guest name", "001");
+		Booking booking = room.getBookings().get(0);
 
 		// Then
-		Booking booking = room.getBookings().get(0);
-		assertTrue(booking.getFromDate().equals(date));
-		assertTrue(booking.getToDate().equals(date));
+		assertTrue(booking.getFromDate().equals(from));
+		assertTrue(booking.getToDate().equals(to));
 	}
 
 	@Test

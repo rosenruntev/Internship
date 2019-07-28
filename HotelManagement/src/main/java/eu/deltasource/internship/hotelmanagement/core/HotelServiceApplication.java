@@ -42,7 +42,7 @@ public class HotelServiceApplication {
 		manager.createBooking("1", LocalDate.of(2019, 7, 20),
 			LocalDate.of(2019, 7, 25), 1, "guest1");
 		manager.createBooking("2", LocalDate.of(2019, 7, 22),
-			LocalDate.of(2019, 7, 22), 2, "guest2");
+			LocalDate.of(2019, 7, 23), 2, "guest2");
 		manager.createBooking("3", LocalDate.of(2019, 7, 19),
 			LocalDate.of(2019, 7, 21), 2, "guest3");
 	}

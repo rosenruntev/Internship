@@ -97,7 +97,7 @@ public class Hotel {
 		List<Room> rooms = getRooms();
 		List<Room> availableRooms = new ArrayList<>();
 		for (Room currentRoom : rooms) {
-			if (currentRoom.getBedsCapacity() >= capacity) {
+			if (currentRoom.getBedsCapacity() == capacity) {
 				if (!currentRoom.isBooked(fromDate, toDate)) {
 					availableRooms.add(currentRoom);
 				}
