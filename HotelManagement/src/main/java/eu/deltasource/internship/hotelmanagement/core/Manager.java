@@ -87,17 +87,9 @@ public class Manager {
 	 * @return the booked room number
 	 */
 	public int createBooking(String guestId, LocalDate fromDate, LocalDate toDate, int capacity, String guestName) {
-		List<Room> hotelRooms = hotel.getRooms();
-		int roomNumber = 0;
-		for (Room room : hotelRooms) {
-			if (!room.isBooked(fromDate, toDate)) {
-				room.createBooking(fromDate, toDate, capacity, guestName, guestId);
-				roomNumber = room.getNumber();
-				break;
-			}
-		}
-
-		return roomNumber;
+		Room firstAvailableRoom = hotel.findAvailableRooms(fromDate, toDate, capacity).get(0);
+		firstAvailableRoom.createBooking(fromDate, toDate, capacity, guestName, guestId);
+		return firstAvailableRoom.getNumber();
 	}
 
 	/**
