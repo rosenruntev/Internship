@@ -162,8 +162,9 @@ public class Room {
 	 * @param capacity  the room beds capacity
 	 * @param guestName the name of the guest
 	 * @param guestId   the id of the guest
+	 * @return true if the booking was successfully created otherwise false
 	 */
-	public void createBooking(LocalDate fromDate, LocalDate toDate, int capacity, String guestName, String guestId) {
+	public boolean createBooking(LocalDate fromDate, LocalDate toDate, int capacity, String guestName, String guestId) {
 		validateDates(fromDate, toDate);
 		if (guestName == null || guestId == null) {
 			throw new IllegalArgumentException("Guest name or guest id cannot be null.");
@@ -181,7 +182,10 @@ public class Room {
 			Booking booking = new Booking(fromDate, toDate, guestName, guestId);
 			bookings.add(booking);
 			System.out.printf("Successfully created %s's booking from %s to %s\n", guestName, fromDate.toString(), toDate.toString());
+			return true;
 		}
+
+		return false;
 	}
 
 	/**
