@@ -1,5 +1,7 @@
 package eu.deltasource.internship.hotelmanagement.core;
 
+import eu.deltasource.internship.hotelmanagement.core.exceptions.FailedBookingCreationException;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -88,7 +90,11 @@ public class Manager {
 	 */
 	public int createBooking(String guestId, LocalDate fromDate, LocalDate toDate, int capacity, String guestName) {
 		Room firstAvailableRoom = hotel.findAvailableRooms(fromDate, toDate, capacity).get(0);
-		firstAvailableRoom.createBooking(fromDate, toDate, capacity, guestName, guestId);
+		boolean isSuccessful = firstAvailableRoom.createBooking(fromDate, toDate, capacity, guestName, guestId);
+		if (!isSuccessful) {
+			throw new FailedBookingCreationException();
+		}
+
 		return firstAvailableRoom.getNumber();
 	}
 
